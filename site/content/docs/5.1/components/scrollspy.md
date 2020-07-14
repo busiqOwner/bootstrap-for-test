@@ -278,7 +278,7 @@ Options can be passed via data attributes or JavaScript. For data attributes, ap
 {{< bs-table "table bs-js-table" >}}
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `offset` | number | 10 | Pixels to offset from top when calculating position of scroll. |
+| `offset` | number | `10` | Pixels to offset from top when calculating position of scroll. |
 | `method` | string | `auto` | Finds which section the spied element is in. `auto` will choose the best method to get scroll coordinates. `offset` will use the [`Element.getBoundingClientRect()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) method to get scroll coordinates. `position` will use the [`HTMLElement.offsetTop`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop) and [`HTMLElement.offsetLeft`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetLeft) properties to get scroll coordinates.` |
 | `target` | string, jQuery object, DOM element |  | Specifies element to apply Scrollspy plugin. |
 {{< /bs-table >}}
