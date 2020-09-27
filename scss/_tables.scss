@@ -104,6 +104,13 @@
   }
 }
 
+.table-striped-cols {
+  > tbody > td:nth-of-type(#{$table-striped-order}) {
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    color: var(--bs-table-striped-color);
+  }
+}
+
 // Active table
 //
 // The `.table-active` class can be added to highlight rows or cells
