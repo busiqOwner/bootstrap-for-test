@@ -310,7 +310,7 @@ var carousel = new bootstrap.Carousel(myCarousel)
 
 Options can be passed via data attributes or JavaScript. For data attributes, append the option name to `data-bs-`, as in `data-bs-interval=""`.
 
-{{< bs-table "table" >}}
+{{< bs-table >}}
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | `interval` | number | `5000` | The amount of time to delay between automatically cycling an item. If `false`, carousel will not automatically cycle. |
@@ -338,7 +338,7 @@ var carousel = new bootstrap.Carousel(myCarousel, {
 })
 ```
 
-{{< bs-table "table" >}}
+{{< bs-table >}}
 | Method | Description |
 | --- | --- |
 | `cycle` | Cycles through the carousel items from left to right. |
@@ -363,7 +363,7 @@ Bootstrap's carousel class exposes two events for hooking into carousel function
 
 All carousel events are fired at the carousel itself (i.e. at the `<div class="carousel">`).
 
-{{< bs-table "table" >}}
+{{< bs-table >}}
 | Event type | Description |
 | --- | --- |
 | `slide.bs.carousel` | Fires immediately when the `slide` instance method is invoked. |

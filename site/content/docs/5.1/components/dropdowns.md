@@ -1054,7 +1054,7 @@ var dropdown = new bootstrap.Dropdown(element, {
 
 ### Methods
 
-{{< bs-table "table" >}}
+{{< bs-table >}}
 | Method | Description |
 | --- | --- |
 | `toggle` | Toggles the dropdown menu of a given navbar or tabbed navigation. |
@@ -1070,7 +1070,7 @@ var dropdown = new bootstrap.Dropdown(element, {
 
 All dropdown events are fired at the toggling element and then bubbled up. So you can also add event listeners on the `.dropdown-menu`'s parent element. `hide.bs.dropdown` and `hidden.bs.dropdown` events have a `clickEvent` property (only when the original Event type is `click`) that contains an Event Object for the click event.
 
-{{< bs-table "table" >}}
+{{< bs-table >}}
 | Event type | Description |
 | --- | --- |
 | `show.bs.dropdown` | Fires immediately when the show instance method is called. |

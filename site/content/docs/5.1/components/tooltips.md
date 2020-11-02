@@ -253,7 +253,7 @@ The `setContent` method accepts an `object` argument, where each property-key is
 
 ### Events
 
-{{< bs-table "table" >}}
+{{< bs-table >}}
 | Event | Description |
 | --- | --- |
 | `show.bs.tooltip` | This event fires immediately when the <code>show</code> instance method is called. |
