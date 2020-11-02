@@ -660,40 +660,16 @@ Our default modal without modifier class constitutes the "medium" size modal.
 
 Another override is the option to pop up a modal that covers the user viewport, available via modifier classes that are placed on a `.modal-dialog`.
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Class</th>
-      <th>Availability</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>.modal-fullscreen</code></td>
-      <td>Always</td>
-    </tr>
-    <tr>
-      <td><code>.modal-fullscreen-sm-down</code></td>
-      <td>Below <code>576px</code></td>
-    </tr>
-    <tr>
-      <td><code>.modal-fullscreen-md-down</code></td>
-      <td>Below <code>768px</code></td>
-    </tr>
-    <tr>
-      <td><code>.modal-fullscreen-lg-down</code></td>
-      <td>Below <code>992px</code></td>
-    </tr>
-    <tr>
-      <td><code>.modal-fullscreen-xl-down</code></td>
-      <td>Below <code>1200px</code></td>
-    </tr>
-    <tr>
-      <td><code>.modal-fullscreen-xxl-down</code></td>
-      <td>Below <code>1400px</code></td>
-    </tr>
-  </tbody>
-</table>
+{{< bs-table >}}
+| Class | Availability |
+| --- | --- | --- |
+| `.modal-fullscreen` | Always |
+| `.modal-fullscreen-sm-down` | `576px` |
+| `.modal-fullscreen-md-down` | `768px` |
+| `.modal-fullscreen-lg-down` | `992px` |
+| `.modal-fullscreen-xl-down` | `1200px` |
+| `.modal-fullscreen-xxl-down` | `1400px` |
+{{< /bs-table >}}
 
 <div class="bd-example">
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen">Full screen</button>
