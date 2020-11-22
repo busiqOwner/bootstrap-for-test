@@ -20,31 +20,18 @@
 {{/* Storing the reused mount warning message */}}
 {{ $missing_file_warning := "%s not found. Check your mounts settings and/or run `npm i`." }}
 {{ $doc_version := site.Params.docs_version }}
-{{/* Doc Search */}}
-{{ if eq .Page.Layout "docs" -}}
-  {{ with resources.GetMatch "js/vendor/docsearch.min.js" }}
-  {{/* As this is a WIP, we don't customize the asset URL,
-    but we will after Hugo .74 and resources.Put (https://github.com/gohugoio/hugo/issues/7406):
-  {{ with resources.GetMatch "js/vendor/docsearch.min.js" }}
-    {{ $docsearch := . | resources.Put (path.Join "/docs" $doc_version "assets/js/vendor/docsearch.min.js") }}
-    {{ $jsAssets = $jsAssets | append $docsearch }}
-  */}}
-    {{ $jsAssets = $jsAssets | append . }}
-  {{ else }}
-    {{ errorf $missing_file_warning "docsearch.min.js" }}
-  {{ end }}
-{{- end }}
 
 {{/* --- Bundle */}}
 {{ $bundle := slice }}
 
 {{/* ----- Mounted from vendors */}}
 {{- $vendor_assets := slice -}}
+
 {{/* As we need to list the desired mounted files to:
   1. Check for missing mounts and throw an error
   2. Control order if need be
   3. Exclude docsearch (though there would be other ways) */}}
-{{ $vendor_filenames := slice "clipboard.min.js" "anchor.min.js" }}
+{{ $vendor_filenames := slice "anchor.min.js" "clipboard.min.js" }}
 {{ range $filename := $vendor_filenames }}
   {{ with resources.GetMatch (print "js/vendor/" .) }}
     {{ $vendor_assets = $vendor_assets | append . }}

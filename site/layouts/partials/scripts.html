@@ -4,7 +4,11 @@
   <script src="/docs/{{ .Site.Params.docs_version }}/dist/js/bootstrap.bundle.js"></script>
 {{- end }}
 
-{{- $variant := cond (eq .Page.Layout "docs") "docs" "default" -}}
+{{ if eq .Page.Layout "docs" -}}
+<script src="/docs/{{ .Site.Params.docs_version }}/assets/js/vendor/docsearch.min.js"></script>
+{{- end }}
+
+{{ $variant := cond (eq .Page.Layout "docs") "docs" "default" -}}
 {{- range partialCached "func/get-js-assets" . $variant -}}
   <script src="{{ .RelPermalink }}"></script>
 {{- end -}}
