@@ -13,25 +13,24 @@
   nav {
     @include font-size(.875rem);
 
-    ul {
-      padding-left: 0;
-      list-style: none;
-
-      ul {
-        padding-left: 1rem;
-        margin-top: .25rem;
-      }
+    ul ul {
+      padding-left: 1rem;
+      margin-top: .25rem;
     }
 
     li {
       margin-bottom: .25rem;
+
+      > .nav-link.active {
+        background-color: $bd-purple-light;
+      }
     }
 
     a {
       color: inherit;
 
-      &:not(:hover) {
-        text-decoration: none;
+      &:hover:not(.active) {
+        text-decoration: underline;
       }
 
       code {
