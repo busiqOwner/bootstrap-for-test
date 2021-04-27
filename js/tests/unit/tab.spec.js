@@ -44,10 +44,10 @@ describe('Tab', () => {
         fixtureEl.innerHTML = '<div class=""><div class="nav-link"></div></div>'
       ].join('')
       const navEl = fixtureEl.querySelector('.nav-link')
-      let tab
+
       expect(() => {
-        // eslint-disable-next-line no-unused-vars
-        tab = new Tab(navEl)
+        // eslint-disable-next-line no-new
+        new Tab(navEl)
       }).toThrowError(TypeError)
     })
   })

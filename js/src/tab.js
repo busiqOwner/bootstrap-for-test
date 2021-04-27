@@ -44,17 +44,18 @@ const CLASS_NAME_FADE = 'fade'
 const CLASS_NAME_SHOW = 'show'
 const CLASS_DROPDOWN = 'dropdown'
 
-const SELECTOR_INNER_ELEM = '.nav-link'
-const SELECTOR_OUTER_ELEM = '.nav-item, .list-group-item'
-const SELECTOR_TABS = '.nav-link, .list-group-item, [role="tab"]'
-const SELECTOR_TABS_TWO_LEVELS = `:scope > * > ${SELECTOR_TABS}`
-const SELECTOR_TAB_PANEL = '.list-group, .nav, [role="tablist"]'
-const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]'
-const SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`
-
 const SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle'
 const SELECTOR_DROPDOWN_MENU = '.dropdown-menu'
 const SELECTOR_DROPDOWN_ITEM = '.dropdown-item'
+const NOT_SELECTOR_DROPDOWN_TOGGLE = ':not(.dropdown-toggle)'
+
+const SELECTOR_TAB_PANEL = '.list-group, .nav, [role="tablist"]'
+const SELECTOR_OUTER = '.nav-item, .list-group-item'
+const SELECTOR_INNER = `.nav-link${NOT_SELECTOR_DROPDOWN_TOGGLE}, .list-group-item${NOT_SELECTOR_DROPDOWN_TOGGLE}, [role="tab"]${NOT_SELECTOR_DROPDOWN_TOGGLE}`
+const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]'
+const SELECTOR_INNER_ELEM = `${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}`
+const SELECTOR_INNER_ELEM_TWO_LEVELS = `:scope > * > ${SELECTOR_INNER_ELEM}`
+const SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`
 
 /**
  * ------------------------------------------------------------------------
@@ -67,7 +68,7 @@ class Tab extends BaseComponent {
     super(element)
     this._parent = this._element.closest(SELECTOR_TAB_PANEL)
     if (this._parent === undefined) {
-      throw new TypeError(`${element.outerHTML} has not a valid parent ${SELECTOR_TABS}`)
+      throw new TypeError(`${element.outerHTML} has not a valid parent ${SELECTOR_INNER_ELEM}`)
     }
 
     this._setInitialAttributes(this._parent, this._getChildren())// Set aria attributes
@@ -90,7 +91,7 @@ class Tab extends BaseComponent {
     }
 
     // Search for active tab on same parent to deactivate it
-    const active = this._getActiveElem() ? Tab._getInnerElement(this._getActiveElem()) : null
+    const active = this._getActiveElem() || null
 
     const hideEvent = active ?
       EventHandler.trigger(active, EVENT_HIDE, {
@@ -195,9 +196,9 @@ class Tab extends BaseComponent {
     Tab.getInstanceOrNew(getChild(event.key === ARROW_RIGHT_KEY)).show()
   }
 
-  _getChildren() {
-    const children = SelectorEngine.children(this._parent, SELECTOR_TABS)
-    return children.length ? children : SelectorEngine.find(SELECTOR_TABS_TWO_LEVELS, this._parent)
+  _getChildren() { // collection of inner elements
+    const children = SelectorEngine.children(this._parent, SELECTOR_INNER_ELEM)
+    return children.length ? children : SelectorEngine.find(SELECTOR_INNER_ELEM_TWO_LEVELS, this._parent)
   }
 
   _getActiveElem() {
@@ -292,22 +293,16 @@ class Tab extends BaseComponent {
     })
   }
 
-  static _elemHasOneOfClasses(element, classes) {
-    return classes.split(',')
-      .find(selector => element.classList.contains(selector.slice(1).trim())) !== undefined
-  }
-
   static _getInnerElement(elem) { // Try to get the inner element (usually the .nav-link)
-    const childNodes = elem.children
-    return (childNodes.length === 1 && Tab._elemHasOneOfClasses(childNodes[0], SELECTOR_INNER_ELEM)) ? childNodes[0] : elem
+    return elem.matches(SELECTOR_INNER_ELEM) ? elem : SelectorEngine.findOne(SELECTOR_INNER_ELEM, elem)
   }
 
   static _getOuterElement(elem) {// Try to get the outer element (usually the .nav-item)
-    return (elem.parentNode && Tab._elemHasOneOfClasses(elem.parentNode, SELECTOR_OUTER_ELEM)) ? elem.parentNode : elem
+    return elem.closest(SELECTOR_OUTER) || elem
   }
 
   static _elemIsActive(elem) {
-    return Tab._getInnerElement(elem).classList.contains(CLASS_NAME_ACTIVE)
+    return elem.classList.contains(CLASS_NAME_ACTIVE)
   }
 
   static getInstanceOrNew(elem) {
