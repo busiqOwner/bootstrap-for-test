@@ -413,9 +413,9 @@ describe('Tab', () => {
       const tab = new Tab(tabEl)
       const spy = jasmine.createSpy('spy')
 
-      spyOn(tab, '_executeCallback')
+      spyOn(tab, '_queueCallback')
       tab._activate(null, spy)
-      expect(tab._executeCallback).not.toHaveBeenCalled()
+      expect(tab._queueCallback).not.toHaveBeenCalled()
       expect(spy).not.toHaveBeenCalled()
     })
   })

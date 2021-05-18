@@ -7,9 +7,8 @@
 
 import {
   defineJQueryPlugin,
-  execute,
   getElementFromSelector,
-  getTransitionDurationFromElement,
+  getNextActiveElement,
   isDisabled,
   reflow
 } from './util/index'
@@ -185,15 +184,8 @@ class Tab extends BaseComponent {
 
     const children = this._getChildren()
 
-    const getChild = getNext => {
-      let index = children.indexOf(event.target)
-      const childrenCount = children.length
-      const newIndex = (getNext ? ++index : --index + childrenCount) % childrenCount // trick for cycling
-
-      return children[newIndex]
-    }
-
-    Tab.getInstanceOrNew(getChild(event.key === ARROW_RIGHT_KEY)).show()
+    const nextActiveElement = getNextActiveElement(children, event.target, event.key === ARROW_RIGHT_KEY, true)
+    Tab.getInstanceOrNew(nextActiveElement).show()
   }
 
   _getChildren() { // collection of inner elements
