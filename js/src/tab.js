@@ -185,7 +185,7 @@ class Tab extends BaseComponent {
     const children = this._getChildren()
 
     const nextActiveElement = getNextActiveElement(children, event.target, event.key === ARROW_RIGHT_KEY, true)
-    Tab.getInstanceOrNew(nextActiveElement).show()
+    Tab.getOrCreateInstance(nextActiveElement).show()
   }
 
   _getChildren() { // collection of inner elements
@@ -271,7 +271,7 @@ class Tab extends BaseComponent {
   // Static
   static jQueryInterface(config) {
     return this.each(function () {
-      const data = Tab.getInstanceOrNew(this)
+      const data = Tab.getOrCreateInstance(this)
 
       if (typeof config !== 'string') {
         return
@@ -296,10 +296,6 @@ class Tab extends BaseComponent {
   static _elemIsActive(elem) {
     return elem.classList.contains(CLASS_NAME_ACTIVE)
   }
-
-  static getInstanceOrNew(elem) {
-    return Tab.getInstance(elem) || new Tab(elem)
-  }
 }
 
 /**
@@ -317,7 +313,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (
     return
   }
 
-  const data = Tab.getInstanceOrNew(this)
+  const data = Tab.getOrCreateInstance(this)
   data.show(this)
 })
 
@@ -328,7 +324,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (
  */
 
 EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
-  SelectorEngine.find(SELECTOR_DATA_TOGGLE_ACTIVE).forEach(el => Tab.getInstanceOrNew(el))
+  SelectorEngine.find(SELECTOR_DATA_TOGGLE_ACTIVE).forEach(el => Tab.getOrCreateInstance(el))
 })
 /**
  * ------------------------------------------------------------------------

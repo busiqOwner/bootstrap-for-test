@@ -590,7 +590,7 @@ describe('Tab', () => {
 
   describe('getOrCreateInstance', () => {
     it('should return tab instance', () => {
-      fixtureEl.innerHTML = '<div></div>'
+      fixtureEl.innerHTML = '<div class="nav"><div class="nav-link"></div></div>'
 
       const div = fixtureEl.querySelector('div')
       const tab = new Tab(div)
@@ -601,7 +601,7 @@ describe('Tab', () => {
     })
 
     it('should return new instance when there is no tab instance', () => {
-      fixtureEl.innerHTML = '<div></div>'
+      fixtureEl.innerHTML = '<div class="nav"><div class="nav-link"></div></div>'
 
       const div = fixtureEl.querySelector('div')
 
