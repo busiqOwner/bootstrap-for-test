@@ -863,8 +863,7 @@ var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
 | Method | Description |
 | --- | --- |
 | `toggle` | Manually toggles a modal. **Returns to the caller before the modal has actually been shown or hidden** (i.e. before the `shown.bs.modal` or `hidden.bs.modal` event occurs). |
-| `show` | Manually opens a modal. **Returns to the caller before the modal has actually been shown** (i.e. before the `shown.bs.modal` event occurs).
-Also, you can pass a DOM element as an argument that can be received in the modal events (as the `relatedTarget` property). (i.e. `var modalToggle = document.getElementById('toggleMyModal'); myModal.show(modalToggle)` |
+| `show` | Manually opens a modal. **Returns to the caller before the modal has actually been shown** (i.e. before the `shown.bs.modal` event occurs). Also, you can pass a DOM element as an argument that can be received in the modal events (as the `relatedTarget` property). (i.e. `var modalToggle = document.getElementById('toggleMyModal'); myModal.show(modalToggle)` |
 | `hide` | Manually hides a modal. **Returns to the caller before the modal has actually been hidden** (i.e. before the `hidden.bs.modal` event occurs). |
 | `handleUpdate` | Manually readjust the modal's position if the height of a modal changes while it is open (i.e. in case a scrollbar appears). |
 | `dispose` | Destroys an element's modal. (Removes stored data on the DOM element) |

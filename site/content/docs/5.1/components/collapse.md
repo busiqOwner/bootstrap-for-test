@@ -175,8 +175,7 @@ var bsCollapse = new bootstrap.Collapse(myCollapse, {
 | `hide` | Hides a collapsible element. **Returns to the caller before the collapsible element has actually been hidden** (e.g., before the `hidden.bs.collapse` event occurs). |
 | `dispose` | Destroys an element's collapse. (Removes stored data on the DOM element) |
 | `getInstance` | Static method which allows you to get the collapse instance associated to a DOM element, you can use it like this: `bootstrap.Collapse.getInstance(element)` |
-| `getOrCreateInstance` | Static method which returns a collapse instance associated to a DOM element or create a new one in case it wasn't initialized.
-You can use it like this: `bootstrap.Collapse.getOrCreateInstance(element)` |
+| `getOrCreateInstance` | Static method which returns a collapse instance associated to a DOM element or create a new one in case it wasn't initialized. You can use it like this: `bootstrap.Collapse.getOrCreateInstance(element)` |
 {{< /bs-table >}}
 
 ### Events
