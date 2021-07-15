@@ -50,7 +50,7 @@ Previously, our scripts dynamically added the `.hide` class to completely hide a
 Click the button below to show a toast (positioned with our utilities in the lower right corner) that has been hidden by default.
 
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
     <div class="toast-header">
       {{< placeholder width="20" height="20" background="#007aff" class="rounded me-2" text="false" title="false" >}}
       <strong class="me-auto">Bootstrap</strong>
@@ -60,6 +60,7 @@ Click the button below to show a toast (positioned with our utilities in the low
     <div class="toast-body">
       Hello, world! This is a toast message.
     </div>
+  <div class="toast-progress"></div>
   </div>
 </div>
 
