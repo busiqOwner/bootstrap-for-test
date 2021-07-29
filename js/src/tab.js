@@ -85,7 +85,7 @@ class Tab extends BaseComponent {
 
   show() { // Shows this elem and deactivate the active sibling if exists
     const innerElem = this._element
-    if (Tab._elemIsActive(innerElem)) {
+    if (this._elemIsActive(innerElem)) {
       return
     }
 
@@ -194,7 +194,7 @@ class Tab extends BaseComponent {
   }
 
   _getActiveElem() {
-    return this._getChildren().find(child => Tab._elemIsActive(child)) || null
+    return this._getChildren().find(child => this._elemIsActive(child)) || null
   }
 
   _setInitialAttributes(parent, children) {
@@ -206,9 +206,9 @@ class Tab extends BaseComponent {
   }
 
   _setInitialAttributesOnChild(child) {
-    child = Tab._getInnerElement(child)
-    const isActive = Tab._elemIsActive(child)
-    const outerElem = Tab._getOuterElement(child)
+    child = this._getInnerElement(child)
+    const isActive = this._elemIsActive(child)
+    const outerElem = this._getOuterElement(child)
     child.setAttribute('aria-selected', isActive)
 
     if (outerElem !== child) {
@@ -241,7 +241,7 @@ class Tab extends BaseComponent {
   }
 
   _toggleDropDown(element, open) {
-    const outerElem = Tab._getOuterElement(element)
+    const outerElem = this._getOuterElement(element)
     // Maybe use bootstrap.Dropdown??
     if (!outerElem.classList.contains(CLASS_DROPDOWN)) {
       return
@@ -251,7 +251,7 @@ class Tab extends BaseComponent {
       const dropElem = SelectorEngine.findOne(selector, outerElem)
 
       if (dropElem) {
-        return open ? dropElem.classList.add(className) : dropElem.classList.remove(className)
+        dropElem.classList.toggle(className, open)
       }
     }
 
@@ -266,6 +266,18 @@ class Tab extends BaseComponent {
     if (!element.hasAttribute(attribute)) {
       element.setAttribute(attribute, value)
     }
+  }
+
+  _elemIsActive(elem) {
+    return elem.classList.contains(CLASS_NAME_ACTIVE)
+  }
+
+  _getInnerElement(elem) { // Try to get the inner element (usually the .nav-link)
+    return elem.matches(SELECTOR_INNER_ELEM) ? elem : SelectorEngine.findOne(SELECTOR_INNER_ELEM, elem)
+  }
+
+  _getOuterElement(elem) {// Try to get the outer element (usually the .nav-item)
+    return elem.closest(SELECTOR_OUTER) || elem
   }
 
   // Static
@@ -284,18 +296,6 @@ class Tab extends BaseComponent {
       data[config]()
     })
   }
-
-  static _getInnerElement(elem) { // Try to get the inner element (usually the .nav-link)
-    return elem.matches(SELECTOR_INNER_ELEM) ? elem : SelectorEngine.findOne(SELECTOR_INNER_ELEM, elem)
-  }
-
-  static _getOuterElement(elem) {// Try to get the outer element (usually the .nav-item)
-    return elem.closest(SELECTOR_OUTER) || elem
-  }
-
-  static _elemIsActive(elem) {
-    return elem.classList.contains(CLASS_NAME_ACTIVE)
-  }
 }
 
 /**
@@ -309,12 +309,11 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (
     event.preventDefault()
   }
 
-  if (isDisabled(this) || isDisabled(Tab._getOuterElement(this))) {
+  if (isDisabled(this)) {
     return
   }
 
-  const data = Tab.getOrCreateInstance(this)
-  data.show(this)
+  Tab.getOrCreateInstance(this).show()
 })
 
 /**
