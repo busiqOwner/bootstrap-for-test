@@ -1,5 +1,4 @@
 .popover {
-  position: absolute;
   top: 0;
   left: 0 #{"/* rtl:ignore */"};
   z-index: $zindex-popover;
@@ -18,7 +17,6 @@
   @include box-shadow($popover-box-shadow);
 
   .popover-arrow {
-    position: absolute;
     display: block;
     width: $popover-arrow-width;
     height: $popover-arrow-height;

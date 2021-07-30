@@ -1,9 +1,7 @@
 // Base class
 .tooltip {
-  position: absolute;
   z-index: $zindex-tooltip;
   display: block;
-  margin: $tooltip-margin;
   // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
   // So reset our font and text properties to avoid inheriting weird values.
   @include reset-text();
@@ -15,7 +13,6 @@
   &.show { opacity: $tooltip-opacity; }
 
   .tooltip-arrow {
-    position: absolute;
     display: block;
     width: $tooltip-arrow-width;
     height: $tooltip-arrow-height;
