@@ -2,6 +2,8 @@
 .tooltip {
   z-index: $zindex-tooltip;
   display: block;
+  margin: $tooltip-margin;
+  @include deprecate("`$tooltip-margin`", "v5", "v5.x", );
   // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
   // So reset our font and text properties to avoid inheriting weird values.
   @include reset-text();
