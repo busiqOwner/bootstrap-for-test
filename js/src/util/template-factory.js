@@ -5,9 +5,9 @@
  * --------------------------------------------------------------------------
  */
 
-import { DefaultAllowlist, sanitizeHtml } from './sanitizer'
 import { getElement, isElement, typeCheckConfig } from '../util/index'
 import SelectorEngine from '../dom/selector-engine'
+import { DefaultAllowlist, sanitizeHtml } from './sanitizer'
 
 /**
  * Constants

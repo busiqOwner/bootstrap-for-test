@@ -10,13 +10,14 @@
 'use strict'
 
 const path = require('path')
+const process = require('process')
 const rollup = require('rollup')
 const glob = require('glob')
 const { babel } = require('@rollup/plugin-babel')
 const banner = require('./banner.js')
 
 const srcPath = path.resolve(__dirname, '../js/src/')
-const jsFiles = glob.sync(srcPath + '/**/*.js')
+const jsFiles = glob.sync(`${srcPath}/**/*.js`)
 
 // Array which holds the resolved plugins
 const resolvedPlugins = []

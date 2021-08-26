@@ -3,6 +3,7 @@
 'use strict'
 
 const path = require('path')
+const process = require('process')
 const ip = require('ip')
 const { babel } = require('@rollup/plugin-babel')
 const istanbul = require('rollup-plugin-istanbul')
@@ -105,7 +106,7 @@ if (BROWSERSTACK) {
   conf.browserStack = {
     username: ENV.BROWSER_STACK_USERNAME,
     accessKey: ENV.BROWSER_STACK_ACCESS_KEY,
-    build: `bootstrap-${ENV.GITHUB_SHA ? ENV.GITHUB_SHA.slice(0, 7) + '-' : ''}${new Date().toISOString()}`,
+    build: `bootstrap-${ENV.GITHUB_SHA ? `${ENV.GITHUB_SHA.slice(0, 7)}-` : ''}${new Date().toISOString()}`,
     project: 'Bootstrap',
     retryLimit: 2
   }
