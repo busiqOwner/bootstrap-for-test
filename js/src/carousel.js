@@ -488,7 +488,7 @@ class Carousel extends BaseComponent {
     const slideIndex = this.getAttribute('data-bs-slide-to')
 
     if (slideIndex) {
-      config.interval = false
+      config.interval = 0
     }
 
     Carousel.carouselInterface(target, config)
