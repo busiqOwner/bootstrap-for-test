@@ -328,7 +328,6 @@ class Carousel extends BaseComponent {
     const nextElement = element || this._getItemByOrder(order, activeElement)
 
     const nextElementIndex = this._getItemIndex(nextElement)
-    const isCycling = Boolean(this._interval)
 
     const isNext = order === ORDER_NEXT
     const directionalClassName = isNext ? CLASS_NAME_START : CLASS_NAME_END
@@ -356,9 +355,7 @@ class Carousel extends BaseComponent {
 
     this._isSliding = true
 
-    if (isCycling) {
-      this.pause()
-    }
+    this.pause()
 
     this._setActiveIndicatorElement(nextElement)
     this._activeElement = nextElement
@@ -400,7 +397,7 @@ class Carousel extends BaseComponent {
       triggerSlidEvent()
     }
 
-    if (isCycling) {
+    if (this._interval) {
       this.cycle()
     }
   }
