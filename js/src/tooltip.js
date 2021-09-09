@@ -222,6 +222,7 @@ class Tooltip extends BaseComponent {
       return
     }
 
+    this.setContent(this._getContentForTemplate()) // todo v6 remove this OR make it optional
     const tip = this._getTipElement()
 
     this._element.setAttribute('aria-describedby', tip.getAttribute('id'))
