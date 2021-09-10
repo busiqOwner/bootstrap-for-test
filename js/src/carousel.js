@@ -472,22 +472,22 @@ class Carousel extends BaseComponent {
       return
     }
 
-    const config = {
-      ...Manipulator.getDataAttributes(this)
-    }
-    const slideIndex = this.getAttribute('data-bs-slide-to')
-
-    if (slideIndex) {
-      config.interval = false
-    }
-
-    Carousel.carouselInterface(target, config)
-
-    if (slideIndex) {
-      Carousel.getInstance(target).to(slideIndex)
-    }
-
     event.preventDefault()
+
+    const carousel = Carousel.getOrCreateInstance(target)
+
+    const slideIndex = this.getAttribute('data-bs-slide-to')
+    if (slideIndex) {
+      carousel.to(slideIndex)
+      return
+    }
+
+    if (Manipulator.getDataAttribute(this, 'slide') === 'next') {
+      carousel.next()
+      return
+    }
+
+    carousel.prev()
   }
 }
 
