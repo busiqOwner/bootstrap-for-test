@@ -277,17 +277,6 @@ class Carousel extends BaseComponent {
     return getNextActiveElement(this._items, activeElement, isNext, this._config.wrap)
   }
 
-  _triggerSlideEvent(relatedTarget, fromIndex, eventDirectionName) {
-    const targetIndex = this._getItemIndex(relatedTarget)
-
-    return EventHandler.trigger(this._element, EVENT_SLIDE, {
-      relatedTarget,
-      direction: eventDirectionName,
-      from: fromIndex,
-      to: targetIndex
-    })
-  }
-
   _setActiveIndicatorElement(index) {
     if (!this._indicatorsElement) {
       return
@@ -320,16 +309,12 @@ class Carousel extends BaseComponent {
 
   _slide(directionOrOrder, element) {
     const order = this._directionToOrder(directionOrOrder)
+
     const activeElement = this._getActive()
     const activeElementIndex = this._getItemIndex(activeElement)
+
     const nextElement = element || this._getItemByOrder(order, activeElement)
-
     const nextElementIndex = this._getItemIndex(nextElement)
-
-    const isNext = order === ORDER_NEXT
-    const directionalClassName = isNext ? CLASS_NAME_START : CLASS_NAME_END
-    const orderClassName = isNext ? CLASS_NAME_NEXT : CLASS_NAME_PREV
-    const eventDirectionName = this._orderToDirection(order)
 
     if (nextElement && nextElement.classList.contains(CLASS_NAME_ACTIVE)) {
       this._isSliding = false
@@ -340,7 +325,17 @@ class Carousel extends BaseComponent {
       return
     }
 
-    const slideEvent = this._triggerSlideEvent(nextElement, activeElementIndex, eventDirectionName)
+    const triggerEvent = eventName => {
+      return EventHandler.trigger(this._element, eventName, {
+        relatedTarget: nextElement,
+        direction: this._orderToDirection(order),
+        from: activeElementIndex,
+        to: nextElementIndex
+      })
+    }
+
+    const slideEvent = triggerEvent(EVENT_SLIDE)
+
     if (slideEvent.defaultPrevented) {
       return
     }
@@ -357,14 +352,9 @@ class Carousel extends BaseComponent {
     this._setActiveIndicatorElement(nextElementIndex)
     this._activeElement = nextElement
 
-    const triggerSlidEvent = () => {
-      EventHandler.trigger(this._element, EVENT_SLID, {
-        relatedTarget: nextElement,
-        direction: eventDirectionName,
-        from: activeElementIndex,
-        to: nextElementIndex
-      })
-    }
+    const isNext = order === ORDER_NEXT
+    const directionalClassName = isNext ? CLASS_NAME_START : CLASS_NAME_END
+    const orderClassName = isNext ? CLASS_NAME_NEXT : CLASS_NAME_PREV
 
     nextElement.classList.add(orderClassName)
 
@@ -381,7 +371,7 @@ class Carousel extends BaseComponent {
 
       this._isSliding = false
 
-      setTimeout(triggerSlidEvent, 0)
+      triggerEvent(EVENT_SLID)
     }
 
     this._queueCallback(completeCallBack, activeElement, this._isAnimated())
