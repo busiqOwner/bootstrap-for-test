@@ -72,7 +72,7 @@ const KEY_TO_DIRECTION = {
 const Default = {
   interval: 5000,
   keyboard: true,
-  slide: false,
+  ride: false,
   pause: 'hover',
   wrap: true,
   touch: true
@@ -81,7 +81,7 @@ const Default = {
 const DefaultType = {
   interval: '(number|boolean)',
   keyboard: 'boolean',
-  slide: '(boolean|string)',
+  ride: '(boolean|string)',
   pause: '(string|boolean)',
   wrap: 'boolean',
   touch: 'boolean'
@@ -453,13 +453,19 @@ class Carousel extends BaseComponent {
 
     if (typeof config === 'number') {
       data.to(config)
-    } else if (typeof action === 'string') {
-      if (typeof data[action] === 'undefined') {
-        throw new TypeError(`No method named "${action}"`)
+      return
+    }
+
+    if (typeof config === 'string') {
+      if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
+        throw new TypeError(`No method named "${config}"`)
       }
 
-      data[action]()
-    } else if (_config.interval && _config.ride) {
+      data[config]()
+      return
+    }
+
+    if (_config.interval && _config.ride) {
       data.pause()
       data.cycle()
     }
