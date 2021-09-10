@@ -438,40 +438,37 @@ class Carousel extends BaseComponent {
   }
 
   // Static
-  static carouselInterface(element, config) {
-    const data = Carousel.getOrCreateInstance(element, config)
-
-    let { _config } = data
-    if (typeof config === 'object') {
-      _config = {
-        ..._config,
-        ...config
-      }
-    }
-
-    if (typeof config === 'number') {
-      data.to(config)
-      return
-    }
-
-    if (typeof config === 'string') {
-      if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`)
-      }
-
-      data[config]()
-      return
-    }
-
-    if (_config.interval && _config.ride) {
-      data.pause()
-      data.cycle()
-    }
-  }
 
   static jQueryInterface(config) {
     return this.each(function () {
-      Carousel.carouselInterface(this, config)
+      const data = Carousel.getOrCreateInstance(this, config)
+
+      let { _config } = data
+      if (typeof config === 'object') {
+        _config = {
+          ..._config,
+          ...config
+        }
+      }
+
+      if (typeof config === 'number') {
+        data.to(config)
+        return
+      }
+
+      if (typeof config === 'string') {
+        if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
+          throw new TypeError(`No method named "${config}"`)
+        }
+
+        data[config]()
+        return
+      }
+
+      if (_config.interval && _config.ride) {
+        data.pause()
+        data.cycle()
+      }
     })
   }
 }
