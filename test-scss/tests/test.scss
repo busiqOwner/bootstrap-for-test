@@ -1,0 +1,40 @@
+@use "sass:map";
+@import "../../node_modules/sass-true/sass/true";
+
+@import "../../scss/functions";
+@import "../../scss/variables";
+
+
+@include describe("Zip -function-") {
+  @include it("Zips multiple lists into a single multi-dimensional list") {
+    @include assert-equal(zip(a b c, 1 2 3), (a 1, b 2, c 3));
+  }
+
+  @include it("should check lists") {
+    @include assert-equal((4, 4), (4, 4));
+  }
+
+  @include it("another test") {
+    @include assert-equal(1, 3);
+    @include assert-equal(1, 4);
+    @include assert-equal(3, 3);
+  }
+}
+
+@include describe("A random test") {
+  @include it("another test2") {
+    $expected-theme-colors: (
+      "primary": "",
+      "secondary": "",
+      "success": "",
+      "info": "",
+      "warning": "",
+      "danger": "",
+      "light": "",
+      "dark": "",
+      "custom": ""
+    );
+
+    @include assert-equal(map.keys($theme-colors), map.keys($expected-theme-colors), "should do something");
+  }
+}
