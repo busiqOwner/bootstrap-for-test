@@ -1,19 +1,36 @@
+#!/usr/bin/env node
 /* eslint-env node */
+
+/*!
+ * Script to run custom unit scss tests.
+ *
+ * At the time this script was created, dart-sass js api didn't support 'quiet' option,
+ * and on every failing assertion, the script was breaking
+ *
+ * In addition, the usage of karma/jasmine runner was not possible,
+ * as it needed much configuration
+ * and at least in windows 10, was having conflict with the fsevents module
+ *
+ * Two available options when we ar using this script
+ *  * -v  => makes output verbose.
+ *          In opposite case it just informs when it is done, and only if the execution has assertion errors
+ */
 
 'use strict'
 
-const path = require('path')
+let exitStatus = 0
+const errors = []
+const process = require('node:process')
+const BE_VERBOSE = process.argv.includes('-v')
+
+const fs = require('fs')
 const helpers = require('./helpers')
 const sassTrue = require('sass-true')
-const fs = require('fs')
 const { exec } = require('child_process')
-const process = require('node:process')
-let exitStatus = 0
-const BE_VERBOSE = process.argv.includes('-v')
-const DELETE_OUTPUT_FILE = process.argv.includes('-r')
-const errors = []
-const sassScript = 'sass --style expanded --quiet --no-source-map --no-error-css test-scss/index.spec.scss:test-scss/index.css'
-const sassFile = path.join(__dirname, 'index.css')
+
+const rootDir = 'test-scss'
+const outputFile = rootDir + '/index.css'
+const sassScript = `sass --style expanded --quiet --no-source-map --no-error-css ${rootDir}/index.spec.scss:${outputFile}`
 
 const describeModule = function (module) {
   helpers.printModule(module.module)
@@ -39,13 +56,17 @@ const describeModule = function (module) {
   }
 }
 
+helpers.print('Start scss tests... \n', 0, helpers.colors.Green, true)
+// eslint-disable-next-line no-unused-vars
 exec(sassScript, (error, stdout, stderr) => {
+
   if (error) {
     helpers.print(`error: ${error.message}`)
     process.exit(1)
   }
 
-  const modules = sassTrue.parse(fs.readFileSync(sassFile).toString())
+  const cssFile = fs.readFileSync(outputFile).toString()
+  const modules = sassTrue.parse(cssFile)
 
   for (const module of modules) {
     describeModule(module)
@@ -59,9 +80,8 @@ exec(sassScript, (error, stdout, stderr) => {
     }
   }
 
-  if (DELETE_OUTPUT_FILE) {
-    fs.unlinkSync(sassFile)
-  }
-
+  fs.unlinkSync(outputFile)
+  helpers.print('End scss tests', 0, helpers.colors.Green, true)
   process.exit(exitStatus)
 })
+
