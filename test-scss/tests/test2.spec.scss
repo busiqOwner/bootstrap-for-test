@@ -1,0 +1,9 @@
+@import "../../node_modules/sass-true/sass/true";
+
+@include describe("A randowm module") {
+
+  @include it("and a random test test") {
+    @include assert-equal(3, 3);
+  }
+}
+

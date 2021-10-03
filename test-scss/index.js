@@ -18,19 +18,17 @@
 
 'use strict'
 
-let exitStatus = 0
-const errors = []
+let hasFailedAssertions = false
+let errors = []
 const process = require('node:process')
 const BE_VERBOSE = process.argv.includes('-v')
 
-const fs = require('fs')
+const path = require('path')
+const glob = require('glob')
 const helpers = require('./helpers')
 const sassTrue = require('sass-true')
-const { exec } = require('child_process')
 
 const rootDir = 'test-scss'
-const outputFile = rootDir + '/index.css'
-const sassScript = `sass --style expanded --quiet --no-source-map --no-error-css ${rootDir}/index.spec.scss:${outputFile}`
 
 const describeModule = function (module) {
   helpers.printModule(module.module)
@@ -43,7 +41,7 @@ const describeModule = function (module) {
     helpers.printTest(test.test)
     for (const assertion of test.assertions || []) {
       if (!assertion.passed) {
-        exitStatus = 1
+        hasFailedAssertions = true
         countFailed++
         const assertionDetails = sassTrue.formatFailureMessage(assertion)
         errors.push(new helpers.ErrorAssertion(module.module, test.test, assertionDetails))
@@ -56,32 +54,36 @@ const describeModule = function (module) {
   }
 }
 
-helpers.print('Start scss tests... \n', 0, helpers.colors.Green, true)
-// eslint-disable-next-line no-unused-vars
-exec(sassScript, (error, stdout, stderr) => {
+async function run() {
+  const files = glob.sync(path.resolve(__dirname, 'tests/**/*.scss'))
+  for (const file of files) {
+    errors = []
+    const relative = file.slice(Math.max(0, file.indexOf(rootDir)))
+    helpers.print(`Processing ${relative}`, 0, helpers.colors.Blue, true)
+    // eslint-disable-next-line no-await-in-loop
+    const result = await helpers.execSassPromise(relative)
 
-  if (error) {
-    helpers.print(`error: ${error.message}`)
-    process.exit(1)
-  }
+    if (result.status === 'rejected') {
+      process.exit(1)
+    }
 
-  const cssFile = fs.readFileSync(outputFile).toString()
-  const modules = sassTrue.parse(cssFile)
+    const modules = sassTrue.parse(result)
+    for (const module of modules) {
+      describeModule(module)
+    }
 
-  for (const module of modules) {
-    describeModule(module)
-  }
-
-  if (!BE_VERBOSE) {
-    for (const error of errors) {
-      helpers.printModule(error.module, true)
-      helpers.printTest(error.test, true)
-      helpers.printTestDetails(error.assertionDetails, true)
+    if (!BE_VERBOSE) {
+      for (const error of errors) {
+        helpers.printModule(error.module, true)
+        helpers.printTest(error.test, true)
+        helpers.printTestDetails(error.assertionDetails, true)
+      }
     }
   }
 
-  fs.unlinkSync(outputFile)
   helpers.print('End scss tests', 0, helpers.colors.Green, true)
-  process.exit(exitStatus)
-})
+  process.exit(hasFailedAssertions ? 1 : 0)
+}
 
+helpers.print('Start scss tests... \n', 0, helpers.colors.Green, true)
+run() // begin execution
