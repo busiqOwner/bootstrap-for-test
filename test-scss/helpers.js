@@ -25,7 +25,7 @@ const ErrorAssertion = function (module, test, assertionDetails) {
 
 const print = (msg, indent = 0, color = null, force = false) => {
   const indentSpaces = ' '.repeat(indent)
-  msg = indentSpaces + msg.replaceAll('\n', '\n' + indentSpaces)
+  msg = indentSpaces + msg.replace(/\n/g, '\n' + indentSpaces)
 
   if (!BE_VERBOSE && !force) {
     return
