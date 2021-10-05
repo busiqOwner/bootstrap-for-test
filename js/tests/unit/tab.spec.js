@@ -461,9 +461,11 @@ describe('Tab', () => {
       keydown.key = 'Enter'
       spyOn(keydown, 'preventDefault')
       spyOn(tab, '_keydown')
+      spyOn(tab, '_getChildren')
 
       tabEl.dispatchEvent(keydown)
       expect(tab._keydown).toHaveBeenCalled()
+      expect(tab._getChildren).not.toHaveBeenCalled()
       expect(keydown.preventDefault).not.toHaveBeenCalled()
     })
 
@@ -776,11 +778,8 @@ describe('Tab', () => {
         const tabProfileEl = fixtureEl.querySelector('#profile')
         const tabHomeEl = fixtureEl.querySelector('#home')
 
-        triggerTabProfileEl.addEventListener('shown.bs.tab', () => {
-          expect(tabProfileEl).toHaveClass('fade')
-          expect(tabProfileEl).toHaveClass('show')
-
-          triggerTabHomeEl.addEventListener('shown.bs.tab', () => {
+        triggerTabHomeEl.addEventListener('shown.bs.tab', () => {
+          setTimeout(() => {
             expect(tabProfileEl).toHaveClass('fade')
             expect(tabProfileEl).not.toHaveClass('show')
 
@@ -788,16 +787,22 @@ describe('Tab', () => {
             expect(tabHomeEl).toHaveClass('show')
 
             resolve()
-          })
+          }, 10)
+        })
 
-          triggerTabHomeEl.click()
+        triggerTabProfileEl.addEventListener('shown.bs.tab', () => {
+          setTimeout(() => {
+            expect(tabProfileEl).toHaveClass('fade')
+            expect(tabProfileEl).toHaveClass('show')
+            triggerTabHomeEl.click()
+          }, 10)
         })
 
         triggerTabProfileEl.click()
       })
     })
 
-    it('should not add show class to tab panes if there is no `.fade` class', () => {
+    it('should not add `show` class to tab panes if there is no `.fade` class', () => {
       return new Promise(resolve => {
         fixtureEl.innerHTML = [
           '<ul class="nav nav-tabs" role="tablist">',
@@ -845,8 +850,10 @@ describe('Tab', () => {
         const secondNavEl = fixtureEl.querySelector('#secondNav')
 
         secondNavEl.addEventListener('shown.bs.tab', () => {
-          expect(fixtureEl.querySelectorAll('.show')).toHaveSize(1)
-          resolve()
+          setTimeout(() => {
+            expect(fixtureEl.querySelectorAll('.show')).toHaveSize(1)
+            resolve()
+          }, 10)
         })
 
         secondNavEl.click()

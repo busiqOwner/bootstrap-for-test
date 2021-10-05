@@ -1,39 +1,30 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.1.1): tab.js
+ * Bootstrap (v5.1.3): tab.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
 
-import {
-  defineJQueryPlugin,
-  getElementFromSelector,
-  getNextActiveElement,
-  isDisabled,
-  reflow
-} from './util/index'
+import { defineJQueryPlugin, getElementFromSelector, getNextActiveElement, isDisabled } from './util/index'
 import EventHandler from './dom/event-handler'
 import SelectorEngine from './dom/selector-engine'
 import BaseComponent from './base-component'
 
 /**
- * ------------------------------------------------------------------------
  * Constants
- * ------------------------------------------------------------------------
  */
 
 const NAME = 'tab'
 const DATA_KEY = 'bs.tab'
 const EVENT_KEY = `.${DATA_KEY}`
-const DATA_API_KEY = '.data-api'
 
 const EVENT_HIDE = `hide${EVENT_KEY}`
 const EVENT_HIDDEN = `hidden${EVENT_KEY}`
 const EVENT_SHOW = `show${EVENT_KEY}`
 const EVENT_SHOWN = `shown${EVENT_KEY}`
-const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}`
+const EVENT_CLICK_DATA_API = `click${EVENT_KEY}`
 const EVENT_KEYDOWN = `keydown${EVENT_KEY}`
-const EVENT_LOAD_DATA_API = `load${EVENT_KEY}${DATA_API_KEY}`
+const EVENT_LOAD_DATA_API = `load${EVENT_KEY}`
 
 const ARROW_LEFT_KEY = 'ArrowLeft'
 const ARROW_RIGHT_KEY = 'ArrowRight'
@@ -51,15 +42,13 @@ const NOT_SELECTOR_DROPDOWN_TOGGLE = ':not(.dropdown-toggle)'
 const SELECTOR_TAB_PANEL = '.list-group, .nav, [role="tablist"]'
 const SELECTOR_OUTER = '.nav-item, .list-group-item'
 const SELECTOR_INNER = `.nav-link${NOT_SELECTOR_DROPDOWN_TOGGLE}, .list-group-item${NOT_SELECTOR_DROPDOWN_TOGGLE}, [role="tab"]${NOT_SELECTOR_DROPDOWN_TOGGLE}`
-const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]'
+const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]' // todo:v6: could be only `tab`
 const SELECTOR_INNER_ELEM = `${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}`
-const SELECTOR_INNER_ELEM_TWO_LEVELS = `:scope > * > ${SELECTOR_INNER_ELEM}`
+
 const SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`
 
 /**
- * ------------------------------------------------------------------------
- * Class Definition
- * ------------------------------------------------------------------------
+ * Class definition
  */
 
 class Tab extends BaseComponent {
@@ -90,7 +79,7 @@ class Tab extends BaseComponent {
     }
 
     // Search for active tab on same parent to deactivate it
-    const active = this._getActiveElem() || null
+    const active = this._getActiveElem()
 
     const hideEvent = active ?
       EventHandler.trigger(active, EVENT_HIDE, {
@@ -117,31 +106,30 @@ class Tab extends BaseComponent {
       return
     }
 
-    element.focus()
-    if (element.classList.contains(CLASS_NAME_FADE)) {
-      element.classList.add(CLASS_NAME_SHOW)
-    }
+    element.classList.add(CLASS_NAME_ACTIVE)
 
     this._activate(getElementFromSelector(element)) // Search and activate/show the proper section
 
+    const isAnimated = element.classList.contains(CLASS_NAME_FADE)
     const complete = () => {
-      element.classList.add(CLASS_NAME_ACTIVE)
+      if (isAnimated) { // todo: maybe is redundant
+        element.classList.add(CLASS_NAME_SHOW)
+      }
 
       if (element.getAttribute('role') !== 'tab') {
         return
       }
 
+      element.focus()
       element.removeAttribute('tabindex')
       element.setAttribute('aria-selected', true)
       this._toggleDropDown(element, true)
       EventHandler.trigger(element, EVENT_SHOWN, {
         relatedTarget: relatedElem
       })
-      reflow(element)
     }
 
-    const isTransitioning = element.classList.contains(CLASS_NAME_FADE)
-    this._queueCallback(complete, element, isTransitioning)
+    this._queueCallback(complete, element, isAnimated)
   }
 
   _deActivate(element, relatedElem) {
@@ -149,13 +137,16 @@ class Tab extends BaseComponent {
       return
     }
 
-    element.classList.remove(CLASS_NAME_SHOW)
+    element.classList.remove(CLASS_NAME_ACTIVE)
     element.blur()
 
     this._deActivate(getElementFromSelector(element))// Search and deactivate the shown section too
 
+    const isAnimated = element.classList.contains(CLASS_NAME_FADE)
     const complete = () => {
-      element.classList.remove(CLASS_NAME_ACTIVE)
+      if (isAnimated) { // todo maybe is redundant
+        element.classList.remove(CLASS_NAME_SHOW)
+      }
 
       if (element.getAttribute('role') !== 'tab') {
         return
@@ -169,17 +160,12 @@ class Tab extends BaseComponent {
       })
     }
 
-    const isTransitioning = element.classList.contains(CLASS_NAME_FADE)
-    this._queueCallback(complete, element, isTransitioning)
+    this._queueCallback(complete, element, isAnimated)
   }
 
   _keydown(event) {
     if (!([ARROW_LEFT_KEY, ARROW_RIGHT_KEY].includes(event.key))) {
       return
-    }
-
-    if (['A', 'AREA'].includes(this.tagName)) {
-      event.preventDefault()
     }
 
     const children = this._getChildren()
@@ -189,8 +175,7 @@ class Tab extends BaseComponent {
   }
 
   _getChildren() { // collection of inner elements
-    const children = SelectorEngine.children(this._parent, SELECTOR_INNER_ELEM)
-    return children.length ? children : SelectorEngine.find(SELECTOR_INNER_ELEM_TWO_LEVELS, this._parent)
+    return SelectorEngine.find(SELECTOR_INNER_ELEM, this._parent)
   }
 
   _getActiveElem() {
@@ -200,9 +185,9 @@ class Tab extends BaseComponent {
   _setInitialAttributes(parent, children) {
     this._setAttributeIfNotExists(parent, 'role', 'tablist')
 
-    children.forEach(child => {
+    for (const child of children) {
       this._setInitialAttributesOnChild(child)
-    })
+    }
   }
 
   _setInitialAttributesOnChild(child) {
@@ -242,17 +227,12 @@ class Tab extends BaseComponent {
 
   _toggleDropDown(element, open) {
     const outerElem = this._getOuterElement(element)
-    // Maybe use bootstrap.Dropdown??
     if (!outerElem.classList.contains(CLASS_DROPDOWN)) {
       return
     }
 
     const toggle = (selector, className) => {
-      const dropElem = SelectorEngine.findOne(selector, outerElem)
-
-      if (dropElem) {
-        dropElem.classList.toggle(className, open)
-      }
+      SelectorEngine.findOne(selector, outerElem)?.classList.toggle(className, open)
     }
 
     //  maybe use Dropdown class?
@@ -299,9 +279,7 @@ class Tab extends BaseComponent {
 }
 
 /**
- * ------------------------------------------------------------------------
- * Data Api implementation
- * ------------------------------------------------------------------------
+ * Data API implementation
  */
 
 EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
@@ -317,19 +295,15 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (
 })
 
 /**
- * ------------------------------------------------------------------------
  * Initialize on focus
- * ------------------------------------------------------------------------
  */
-
 EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
-  SelectorEngine.find(SELECTOR_DATA_TOGGLE_ACTIVE).forEach(el => Tab.getOrCreateInstance(el))
+  for (const element of SelectorEngine.find(SELECTOR_DATA_TOGGLE_ACTIVE)) {
+    Tab.getOrCreateInstance(element)
+  }
 })
 /**
- * ------------------------------------------------------------------------
  * jQuery
- * ------------------------------------------------------------------------
- * add .Tab to jQuery only if jQuery is present
  */
 
 defineJQueryPlugin(Tab)
