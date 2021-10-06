@@ -872,32 +872,6 @@ describe('Carousel', () => {
   })
 
   describe('pause', () => {
-    it('should call cycle if the carousel have carousel-item-next and carousel-item-prev class', () => {
-      fixtureEl.innerHTML = [
-        '<div id="myCarousel" class="carousel slide">',
-        '  <div class="carousel-inner">',
-        '    <div class="carousel-item active">item 1</div>',
-        '    <div class="carousel-item carousel-item-next">item 2</div>',
-        '    <div class="carousel-item">item 3</div>',
-        '  </div>',
-        '  <div class="carousel-control-prev"></div>',
-        '  <div class="carousel-control-next"></div>',
-        '</div>'
-      ].join('')
-
-      const carouselEl = fixtureEl.querySelector('#myCarousel')
-      const carousel = new Carousel(carouselEl)
-
-      spyOn(carousel, 'cycle')
-      spyOn(carousel, '_clearInterval')
-
-      carousel.pause()
-
-      expect(carousel.cycle).toHaveBeenCalledWith(true)
-      expect(carousel._clearInterval).toHaveBeenCalled()
-      expect(carousel._isPaused).toBeTrue()
-    })
-
     it('should not call cycle if nothing is in transition', () => {
       fixtureEl.innerHTML = [
         '<div id="myCarousel" class="carousel slide">',
@@ -921,32 +895,6 @@ describe('Carousel', () => {
 
       expect(carousel.cycle).not.toHaveBeenCalled()
       expect(carousel._clearInterval).toHaveBeenCalled()
-      expect(carousel._isPaused).toBeTrue()
-    })
-
-    it('should not set is paused at true if an event is passed', () => {
-      fixtureEl.innerHTML = [
-        '<div id="myCarousel" class="carousel slide">',
-        '  <div class="carousel-inner">',
-        '    <div class="carousel-item active">item 1</div>',
-        '    <div class="carousel-item">item 2</div>',
-        '    <div class="carousel-item">item 3</div>',
-        '  </div>',
-        '  <div class="carousel-control-prev"></div>',
-        '  <div class="carousel-control-next"></div>',
-        '</div>'
-      ].join('')
-
-      const carouselEl = fixtureEl.querySelector('#myCarousel')
-      const carousel = new Carousel(carouselEl)
-      const event = createEvent('mouseenter')
-
-      spyOn(carousel, '_clearInterval')
-
-      carousel.pause(event)
-
-      expect(carousel._clearInterval).toHaveBeenCalled()
-      expect(carousel._isPaused).toBeFalse()
     })
   })
 
@@ -972,30 +920,6 @@ describe('Carousel', () => {
       carousel.cycle()
 
       expect(window.setInterval).toHaveBeenCalled()
-    })
-
-    it('should not set interval if the carousel is paused', () => {
-      fixtureEl.innerHTML = [
-        '<div id="myCarousel" class="carousel slide">',
-        '  <div class="carousel-inner">',
-        '    <div class="carousel-item active">item 1</div>',
-        '    <div class="carousel-item">item 2</div>',
-        '    <div class="carousel-item">item 3</div>',
-        '  </div>',
-        '  <div class="carousel-control-prev"></div>',
-        '  <div class="carousel-control-next"></div>',
-        '</div>'
-      ].join('')
-
-      const carouselEl = fixtureEl.querySelector('#myCarousel')
-      const carousel = new Carousel(carouselEl)
-
-      spyOn(window, 'setInterval').and.callThrough()
-
-      carousel._isPaused = true
-      carousel.cycle(true)
-
-      expect(window.setInterval).not.toHaveBeenCalled()
     })
 
     it('should clear interval if there is one', () => {
@@ -1135,7 +1059,7 @@ describe('Carousel', () => {
       expect(spy).not.toHaveBeenCalled()
     })
 
-    it('should call pause and cycle is the provided is the same compare to the current one', () => {
+    it('should NOT call `pause` and `cycle` if the provided is the same compare to the current one', () => {
       fixtureEl.innerHTML = [
         '<div id="myCarousel" class="carousel slide">',
         '  <div class="carousel-inner">',
@@ -1156,8 +1080,8 @@ describe('Carousel', () => {
       carousel.to(0)
 
       expect(carousel._slide).not.toHaveBeenCalled()
-      expect(carousel.pause).toHaveBeenCalled()
-      expect(carousel.cycle).toHaveBeenCalled()
+      expect(carousel.pause).not.toHaveBeenCalled()
+      expect(carousel.cycle).not.toHaveBeenCalled()
     })
 
     it('should wait before performing to if a slide is sliding', () => {

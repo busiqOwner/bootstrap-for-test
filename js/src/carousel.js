@@ -59,7 +59,6 @@ const SELECTOR_ACTIVE = '.active'
 const SELECTOR_ITEM = '.carousel-item'
 const SELECTOR_ACTIVE_ITEM = SELECTOR_ACTIVE + SELECTOR_ITEM
 const SELECTOR_ITEM_IMG = '.carousel-item img'
-const SELECTOR_NEXT_PREV = '.carousel-item-next, .carousel-item-prev'
 const SELECTOR_INDICATORS = '.carousel-indicators'
 const SELECTOR_DATA_SLIDE = '[data-bs-slide], [data-bs-slide-to]'
 const SELECTOR_DATA_RIDE = '[data-bs-ride="carousel"]'
@@ -96,7 +95,6 @@ class Carousel extends BaseComponent {
     super(element, config)
 
     this._interval = null
-    this._isPaused = false
     this._isSliding = false
     this.touchTimeout = null
     this._swipeHelper = null
@@ -136,26 +134,15 @@ class Carousel extends BaseComponent {
     this._slide(ORDER_PREV)
   }
 
-  pause(event) {
-    if (!event) {
-      this._isPaused = true
-    }
-
-    if (SelectorEngine.findOne(SELECTOR_NEXT_PREV, this._element)) {
-      triggerTransitionEnd(this._element)
-      this.cycle(true)
-    }
+  pause() {
+    triggerTransitionEnd(this._element) // just to execute remaining queued Callback
 
     this._clearInterval()
   }
 
-  cycle(event) {
-    if (!event) {
-      this._isPaused = false
-    }
-
+  cycle() {
     this._clearInterval()
-    if (this._config.interval && !this._isPaused) {
+    if (this._config.interval) {
       this._updateInterval()
 
       this._interval = setInterval(() => this.nextWhenVisible(), this._config.interval)
@@ -174,8 +161,6 @@ class Carousel extends BaseComponent {
 
     const activeIndex = this._getItemIndex(this._getActive())
     if (activeIndex === index) {
-      this.pause()
-      this.cycle()
       return
     }
 
@@ -206,8 +191,8 @@ class Carousel extends BaseComponent {
     }
 
     if (this._config.pause === 'hover') {
-      EventHandler.on(this._element, EVENT_MOUSEENTER, event => this.pause(event))
-      EventHandler.on(this._element, EVENT_MOUSELEAVE, event => this.cycle(event))
+      EventHandler.on(this._element, EVENT_MOUSEENTER, () => this.pause())
+      EventHandler.on(this._element, EVENT_MOUSELEAVE, () => this.cycle())
     }
 
     if (this._config.touch && Swipe.isSupported()) {
@@ -355,13 +340,10 @@ class Carousel extends BaseComponent {
       this._isSliding = false
 
       triggerEvent(EVENT_SLID)
+      this.cycle()
     }
 
     this._queueCallback(completeCallBack, activeElement, this._isAnimated())
-
-    if (this._interval) {
-      this.cycle()
-    }
   }
 
   _isAnimated() {
@@ -436,7 +418,6 @@ class Carousel extends BaseComponent {
       }
 
       if (_config.interval && _config.ride) {
-        data.pause()
         data.cycle()
       }
     })
