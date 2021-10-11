@@ -190,21 +190,6 @@ class Toast extends BaseComponent {
     this._timeout = null
   }
 
-  // Static
-  static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Toast.getOrCreateInstance(this, config)
-
-      if (typeof config === 'string') {
-        if (typeof data[config] === 'undefined') {
-          throw new TypeError(`No method named "${config}"`)
-        }
-
-        data[config](this)
-      }
-    })
-  }
-
   _toggleProgressBar(time) {
     const progressBarElement = SelectorEngine.findOne(CLASS_PROGRESS_BAR, this._element)
     if (!progressBarElement) {
@@ -219,6 +204,22 @@ class Toast extends BaseComponent {
 
     progressBarElement.classList.remove('animated')
     reflow(progressBarElement)
+  }
+
+  // Static
+
+  static jQueryInterface(config) {
+    return this.each(function () {
+      const data = Toast.getOrCreateInstance(this, config)
+
+      if (typeof config === 'string') {
+        if (typeof data[config] === 'undefined') {
+          throw new TypeError(`No method named "${config}"`)
+        }
+
+        data[config](this)
+      }
+    })
   }
 }
 
