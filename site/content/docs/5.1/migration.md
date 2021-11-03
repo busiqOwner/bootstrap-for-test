@@ -56,6 +56,7 @@ Your custom Bootstrap CSS builds should now look something like this with a sepa
 ### Key changes
 
 - **Introduced new `$enable-container-classes` option.** Now when opting into the experimental CSS Grid layout, `.container-*` classes will still be compiled, unless this option is set to `false`.
+- **Removed unused positioning styles from popovers and tooltips** as these are handled solely by Popper.js. `$tooltip-margin` has been deprecated and set to `null` in the process.
 
 ## Dependencies
 
