@@ -54,7 +54,7 @@ const build = async plugin => {
       const pattern = /^(\.{1,2})\//
 
       // It's not a local file, e.g a Node.js package
-      if (!pattern.test(source)) {
+      if (!source.startsWith('.')) {
         globals[source] = source
         return true
       }
