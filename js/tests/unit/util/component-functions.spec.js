@@ -1,8 +1,8 @@
 /* Test helpers */
 
-import { clearFixture, createEvent, getFixture } from '../../helpers/fixture.js'
-import { enableDismissTrigger } from '../../../src/util/component-functions.js'
-import BaseComponent from '../../../src/base-component.js'
+import { clearFixture, createEvent, getFixture } from '../../helpers/fixture'
+import { enableDismissTrigger } from '../../../src/util/component-functions'
+import BaseComponent from '../../../src/base-component'
 
 class DummyClass2 extends BaseComponent {
   static get NAME() {

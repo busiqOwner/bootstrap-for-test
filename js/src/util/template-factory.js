@@ -5,9 +5,9 @@
  * --------------------------------------------------------------------------
  */
 
-import { getElement, isElement, typeCheckConfig } from '../util/index.js'
-import SelectorEngine from '../dom/selector-engine.js'
-import { DefaultAllowlist, sanitizeHtml } from './sanitizer.js'
+import { getElement, isElement, typeCheckConfig } from '../util/index'
+import SelectorEngine from '../dom/selector-engine'
+import { DefaultAllowlist, sanitizeHtml } from './sanitizer'
 
 /**
  * Constants

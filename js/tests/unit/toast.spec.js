@@ -1,5 +1,5 @@
-import Toast from '../../src/toast.js'
-import { getFixture, clearFixture, createEvent, jQueryMock } from '../helpers/fixture.js'
+import Toast from '../../src/toast'
+import { getFixture, clearFixture, createEvent, jQueryMock } from '../helpers/fixture'
 
 describe('Toast', () => {
   let fixtureEl

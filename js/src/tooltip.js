@@ -14,13 +14,13 @@ import {
   isRTL,
   noop,
   typeCheckConfig
-} from './util/index.js'
-import { DefaultAllowlist } from './util/sanitizer.js'
-import Data from './dom/data.js'
-import EventHandler from './dom/event-handler.js'
-import Manipulator from './dom/manipulator.js'
-import BaseComponent from './base-component.js'
-import TemplateFactory from './util/template-factory.js'
+} from './util/index'
+import { DefaultAllowlist } from './util/sanitizer'
+import Data from './dom/data'
+import EventHandler from './dom/event-handler'
+import Manipulator from './dom/manipulator'
+import BaseComponent from './base-component'
+import TemplateFactory from './util/template-factory'
 
 /**
  * Constants

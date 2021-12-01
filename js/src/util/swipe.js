@@ -5,8 +5,8 @@
  * --------------------------------------------------------------------------
  */
 
-import EventHandler from '../dom/event-handler.js'
-import { execute, typeCheckConfig } from './index.js'
+import EventHandler from '../dom/event-handler'
+import { execute, typeCheckConfig } from './index'
 
 /**
  * Constants

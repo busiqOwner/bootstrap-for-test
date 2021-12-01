@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------------
  */
 
-import { isDisabled, isVisible } from '../util/index.js'
+import { isDisabled, isVisible } from '../util/index'
 
 /**
  * Constants

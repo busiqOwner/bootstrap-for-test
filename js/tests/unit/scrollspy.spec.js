@@ -1,6 +1,6 @@
-import ScrollSpy from '../../src/scrollspy.js'
-import Manipulator from '../../src/dom/manipulator.js'
-import { getFixture, clearFixture, createEvent, jQueryMock } from '../helpers/fixture.js'
+import ScrollSpy from '../../src/scrollspy'
+import Manipulator from '../../src/dom/manipulator'
+import { getFixture, clearFixture, createEvent, jQueryMock } from '../helpers/fixture'
 
 describe('ScrollSpy', () => {
   let fixtureEl
