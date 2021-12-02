@@ -1,6 +1,7 @@
 import ScrollSpy from '../../src/scrollspy'
 import Manipulator from '../../src/dom/manipulator'
-import { clearFixture, createEvent, getFixture, jQueryMock } from '../helpers/fixture'
+import { getFixture, clearFixture, createEvent, jQueryMock } from '../helpers/fixture'
+import { getJqueryInterfaceForPlugin } from '../../src/util/jquery-stuff'
 
 describe('ScrollSpy', () => {
   let fixtureEl
@@ -598,7 +599,7 @@ describe('ScrollSpy', () => {
 
       const div = fixtureEl.querySelector('div')
 
-      jQueryMock.fn.scrollspy = ScrollSpy.jQueryInterface
+      jQueryMock.fn.scrollspy = getJqueryInterfaceForPlugin(ScrollSpy)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.scrollspy.call(jQueryMock)
@@ -611,7 +612,7 @@ describe('ScrollSpy', () => {
 
       const div = fixtureEl.querySelector('div')
 
-      jQueryMock.fn.scrollspy = ScrollSpy.jQueryInterface
+      jQueryMock.fn.scrollspy = getJqueryInterfaceForPlugin(ScrollSpy)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.scrollspy.call(jQueryMock, { offset: 15 })
@@ -629,7 +630,7 @@ describe('ScrollSpy', () => {
       const div = fixtureEl.querySelector('div')
       const scrollSpy = new ScrollSpy(div)
 
-      jQueryMock.fn.scrollspy = ScrollSpy.jQueryInterface
+      jQueryMock.fn.scrollspy = getJqueryInterfaceForPlugin(ScrollSpy)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.scrollspy.call(jQueryMock)
@@ -645,7 +646,7 @@ describe('ScrollSpy', () => {
 
       spyOn(scrollSpy, 'refresh')
 
-      jQueryMock.fn.scrollspy = ScrollSpy.jQueryInterface
+      jQueryMock.fn.scrollspy = getJqueryInterfaceForPlugin(ScrollSpy)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.scrollspy.call(jQueryMock, 'refresh')
@@ -660,7 +661,7 @@ describe('ScrollSpy', () => {
       const div = fixtureEl.querySelector('div')
       const action = 'undefinedMethod'
 
-      jQueryMock.fn.scrollspy = ScrollSpy.jQueryInterface
+      jQueryMock.fn.scrollspy = getJqueryInterfaceForPlugin(ScrollSpy)
       jQueryMock.elements = [div]
 
       expect(() => {

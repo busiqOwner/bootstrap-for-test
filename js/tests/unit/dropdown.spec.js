@@ -2,6 +2,7 @@ import Dropdown from '../../src/dropdown'
 import EventHandler from '../../src/dom/event-handler'
 import { noop } from '../../src/util/index'
 import { clearFixture, createEvent, getFixture, jQueryMock } from '../helpers/fixture'
+import { getJqueryInterfaceForPlugin } from '../../src/util/jquery-stuff'
 
 describe('Dropdown', () => {
   let fixtureEl
@@ -2051,7 +2052,7 @@ describe('Dropdown', () => {
 
       const div = fixtureEl.querySelector('div')
 
-      jQueryMock.fn.dropdown = Dropdown.jQueryInterface
+      jQueryMock.fn.dropdown = getJqueryInterfaceForPlugin(Dropdown)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.dropdown.call(jQueryMock)
@@ -2065,7 +2066,7 @@ describe('Dropdown', () => {
       const div = fixtureEl.querySelector('div')
       const dropdown = new Dropdown(div)
 
-      jQueryMock.fn.dropdown = Dropdown.jQueryInterface
+      jQueryMock.fn.dropdown = getJqueryInterfaceForPlugin(Dropdown)
       jQueryMock.elements = [div]
 
       jQueryMock.fn.dropdown.call(jQueryMock)
@@ -2079,7 +2080,7 @@ describe('Dropdown', () => {
       const div = fixtureEl.querySelector('div')
       const action = 'undefinedMethod'
 
-      jQueryMock.fn.dropdown = Dropdown.jQueryInterface
+      jQueryMock.fn.dropdown = getJqueryInterfaceForPlugin(Dropdown)
       jQueryMock.elements = [div]
 
       expect(() => {
