@@ -340,7 +340,7 @@ To keep compatibility of them, we will continue parse, given `offset` to `rootMa
 | `refresh` | When using scrollspy in conjunction with adding or removing of elements from the DOM, you'll need to call the refresh method. |
 | `dispose` | Destroys an element's scrollspy. (Removes stored data on the DOM element) |
 | `getInstance` | *Static* method which allows, to get the scrollspy instance associated with a DOM element |
-| `getOrCreateInstance` | *Static* method which allows, to get the scrollspy instance associated with a DOM element, or create a new one in case it wasn't initialised. |
+| `getOrCreateInstance` | *Static* method which allows, to get the scrollspy instance associated with a DOM element, or create a new one in case it wasn't initialized. |
 {{< /bs-table >}}
 
 Here's an example using the refresh method:
