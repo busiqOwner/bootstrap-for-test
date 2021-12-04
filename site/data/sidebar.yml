@@ -98,6 +98,7 @@
 - title: Utilities
   pages:
     - title: API
+    - title: Mixin
     - title: Background
     - title: Borders
     - title: Colors
