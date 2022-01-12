@@ -222,7 +222,11 @@ class Tooltip extends BaseComponent {
       return
     }
 
-    this.tip.remove() // todo v6 remove this OR make it optional
+    // todo v6 remove this OR make it optional
+    if (this.tip) {
+      this.tip.remove()
+    }
+
     const tip = this._getTipElement()
 
     this._element.setAttribute('aria-describedby', tip.getAttribute('id'))
