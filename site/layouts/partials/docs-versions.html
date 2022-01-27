@@ -10,6 +10,9 @@
     <li><h6 class="dropdown-header">v5 releases</h6></li>
     <li><a class="dropdown-item current" aria-current="true" href="/docs/{{ .Site.Params.docs_version }}/">Latest ({{ .Site.Params.docs_version }}.x)</a></li>
     <li>
+      <a class="dropdown-item" href="https://getbootstrap.com/docs/5.1/{{ $group_slug }}/{{ $page_slug }}/">v5.1.3</a>
+    </li>
+    <li>
       {{- if eq .Page.Params.added "5.1" }}
         <div class="dropdown-item disabled">v5.0.2</div>
       {{- else }}
