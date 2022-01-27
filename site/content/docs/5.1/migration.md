@@ -9,6 +9,10 @@ toc: true
 
 ## v5.2.0
 
+### Refreshed design
+
+Bootstrap v5.2.0 features a subtle design update for a handful of components and properties across the project, most notably through refined `border-radius` values on buttons and form controls. Our documentation also has been updated with a new homepage, simpler docs layout that no longer collapses sections of the sidebar, and more prominent examples of [Bootstrap Icons](https://icons.getbootstrap.com).
+
 ### New `_maps.scss`
 
 Bootstrap v5.2.0 introduced a new Sass file, `_maps.scss`, that pulled out several Sass maps from `_variables.scss` to fix an issue where updates to an original map were not applied to secondary maps that extend them. For example, updates to `$theme-colors` were not being applied to other theme maps that relied on `$theme-colors`, breaking key customization workflows. In short, Sass has a limitation where once a default variable or map has been _used_, it cannot be updated.
@@ -53,9 +57,18 @@ Your custom Bootstrap CSS builds should now look something like this with a sepa
   // etc
 ```
 
+### New utilities
+
+- Expanded [`font-weight` utilities]({{< docsref "/utilities/text#font-weight-and-italics" >}}) to include `.fw-600` for semibold fonts.
+- Expanded [`border-radius` utilities]({{< docsref "/utilities/borders#sizes" >}}) to include two new sizes, `.rounded-4` and `.rounded-5`, for more options.
+
 ### Key changes
 
 - **Introduced new `$enable-container-classes` option.** Now when opting into the experimental CSS Grid layout, `.container-*` classes will still be compiled, unless this option is set to `false`.
+- **Alerts, buttons, navbars, popovers, and tooltips are now built with CSS variables.** While Sass still underpins everything, each of these components have been updated to include several CSS variables on the component base classes (e.g., `.btn`), allowing for more real-time customization of Bootstrap.
+- **Updated our grid systems** so that containers now keep their gutter values, and enabling the experimental CSS Grid no longer removes container classes.
+
+<hr class="mt-5 mb--4">
 
 ## Dependencies
 
