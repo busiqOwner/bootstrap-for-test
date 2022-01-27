@@ -12,6 +12,7 @@
   --bs-btn-hover-bg: #{shade-color($bd-violet, 20%)};
   --bs-btn-hover-border-color: #{shade-color($bd-violet, 20%)};
   --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-border-radius: .5rem;
 }
 // scss-docs-end btn-css-vars-example
 
