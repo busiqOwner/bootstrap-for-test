@@ -6,6 +6,10 @@
     --bs-gutter-x: #{$bd-gutter-x};
   }
 
+  .container-xxl {
+    --bs-gutter-x: #{$bd-gutter-x};
+  }
+
   .navbar-toggler {
     padding: 0;
     border: 0;
