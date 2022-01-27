@@ -315,12 +315,12 @@
 //
 
 .highlight {
-  padding: var(--bs-gutter-x) $bd-gutter-x;
+  padding: .75rem $bd-gutter-x;
   margin-bottom: 1rem;
   background-color: $gray-100;
 
   @include media-breakpoint-up(sm) {
-    padding: 1rem 1.5rem;
+    padding: .75rem 1.5rem;
   }
 
   pre {
@@ -330,6 +330,11 @@
     white-space: pre;
     background-color: transparent;
     border: 0;
+
+    // Undo tabindex that's automatically added by Hugo
+    &:focus {
+      outline: 0;
+    }
   }
 
   pre code {
