@@ -15,6 +15,21 @@
 (function () {
   'use strict'
 
+  // Scroll the active sidebar link into view
+  var sidenav = document.querySelector('.bd-links')
+  if (sidenav) {
+    var sidenavHeight = sidenav.clientHeight
+    var sidenavActiveLink = document.querySelector('#bd-docs-nav .active')
+    var sidenavActiveLinkTop = sidenavActiveLink.offsetTop
+    var sidenavActiveLinkHeight = sidenavActiveLink.clientHeight
+    var viewportTop = sidenavActiveLinkTop
+    var viewportBottom = viewportTop - sidenavHeight + sidenavActiveLinkHeight
+
+    if (sidenav.scrollTop > viewportTop || sidenav.scrollTop < viewportBottom) {
+      sidenav.scrollTop = viewportTop - (sidenavHeight / 2) + (sidenavActiveLinkHeight / 2)
+    }
+  }
+
   // Tooltip and popover demos
   document.querySelectorAll('.tooltip-demo')
     .forEach(function (tooltip) {
