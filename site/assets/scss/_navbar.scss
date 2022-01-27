@@ -1,9 +1,10 @@
 .bd-navbar {
-  --bs-gutter-x: $bd-gutter-x;
-  --bs-gutter-y: $bd-gutter-x;
-
   padding: .75rem 0;
   background-color: $bd-violet;
+
+  .container-xxl {
+    --bs-gutter-x: #{$bd-gutter-x};
+  }
 
   .navbar-toggler {
     padding: 0;

@@ -15,6 +15,21 @@
 (function () {
   'use strict'
 
+  // Scroll the active sidebar link into view
+  var sidenav = document.querySelector('.bd-links')
+  if (sidenav) {
+    var sidenavHeight = sidenav.clientHeight
+    var sidenavActiveLink = document.querySelector('#bd-docs-nav .active')
+    var sidenavActiveLinkTop = sidenavActiveLink.offsetTop
+    var sidenavActiveLinkHeight = sidenavActiveLink.clientHeight
+    var viewportTop = sidenavActiveLinkTop
+    var viewportBottom = viewportTop - sidenavHeight + sidenavActiveLinkHeight
+
+    if (sidenav.scrollTop > viewportTop || sidenav.scrollTop < viewportBottom) {
+      sidenav.scrollTop = viewportTop - (sidenavHeight / 2) + (sidenavActiveLinkHeight / 2)
+    }
+  }
+
   // Tooltip and popover demos
   document.querySelectorAll('.tooltip-demo')
     .forEach(function (tooltip) {
@@ -119,7 +134,8 @@
 
   // Insert copy to clipboard button before .highlight
   var btnTitle = 'Copy to clipboard'
-  var btnHtml = '<div class="bd-clipboard"><button type="button" class="btn-clipboard">Copy</button></div>'
+  var btnHtml = '<div class="bd-clipboard"><button type="button" class="btn-clipboard" ><svg class="bi" width="1em" height="1em" fill="currentColor" role="img" aria-label="Copy"><use xlink:href="#clipboard"/></svg></button></div>'
+
   document.querySelectorAll('div.highlight')
     .forEach(function (element) {
       element.insertAdjacentHTML('beforebegin', btnHtml)
