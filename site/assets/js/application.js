@@ -134,7 +134,6 @@
 
   // Insert copy to clipboard button before .highlight
   var btnTitle = 'Copy to clipboard'
-  // var btnHtml = '<div class="bd-clipboard"><button type="button" class="btn-clipboard">Copy</button></div>'
   var btnHtml = '<div class="bd-clipboard"><button type="button" class="btn-clipboard" ><svg class="bi" width="1em" height="1em" fill="currentColor"><use xlink:href="#clipboard"/></svg></button></div>'
 
   document.querySelectorAll('div.highlight')
