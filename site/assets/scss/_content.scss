@@ -32,6 +32,8 @@
 
   // Override Bootstrap defaults
   > .table {
+    --bs-table-border-color: var(--bs-border-color);
+
     max-width: 100%;
     margin-bottom: 1.5rem;
     @include font-size(.875rem);
@@ -63,6 +65,11 @@
   }
 }
 
+.table-swatches {
+  td:first-child { width: 340px; }
+  td:nth-child(2) { width: 200px; }
+}
+
 .bd-title {
   @include font-size(3rem);
 }
@@ -83,38 +90,7 @@
 .bi {
   width: 1em;
   height: 1em;
-  fill: currentColor;
-}
-
-.icon-link {
-  display: flex;
-  align-items: center;
-  text-decoration-color: rgba($primary, .5);
-  text-underline-offset: .5rem;
-  backface-visibility: hidden;
-
-  .bi {
-    width: 1.5em;
-    height: 1.5em;
-    transition: .2s ease-in-out transform; // stylelint-disable-line property-disallowed-list
-  }
-
-  &:hover {
-    .bi {
-      transform: translate3d(5px, 0, 0);
-    }
-  }
-}
-
-.border-lg-start {
-  @include media-breakpoint-up(lg) {
-    border-left: $border-width solid $border-color;
-  }
-}
-
-.bi {
-  width: 1em;
-  height: 1em;
+  vertical-align: -.125em;
   fill: currentColor;
 }
 

@@ -396,9 +396,24 @@ $position-values: (
 //
 // Settings for the `<body>` element.
 
-$body-bg:                   $white !default;
-$body-color:                $gray-900 !default;
 $body-text-align:           null !default;
+$body-color:                $gray-900 !default;
+$body-bg:                   $white !default;
+
+$body-color-dark:           $gray-500 !default;
+$body-bg-dark:              $gray-900 !default;
+
+$body-secondary-color:      rgba($body-color, .75) !default;
+$body-secondary-bg:         $gray-200 !default;
+
+$body-tertiary-color:       rgba($body-color, .5) !default;
+$body-tertiary-bg:          $gray-100 !default;
+
+$body-secondary-color-dark: rgba($body-color-dark, .75) !default;
+$body-secondary-bg-dark:    $gray-800 !default;
+
+$body-tertiary-color-dark:  rgba($body-color-dark, .5) !default;
+$body-tertiary-bg-dark:     mix($gray-800, $gray-900, 50%) !default;
 
 // Links
 //
@@ -412,6 +427,9 @@ $link-hover-decoration:                   null !default;
 
 $stretched-link-pseudo-element:           after !default;
 $stretched-link-z-index:                  1 !default;
+
+$link-color-dark:                         $blue-300 !default;
+$link-hover-color-dark:                   $blue-200 !default;
 
 // Paragraphs
 //
@@ -483,8 +501,9 @@ $border-widths: (
   4: 4px,
   5: 5px
 ) !default;
-
-$border-color:                $gray-300 !default;
+$border-style:                solid !default;
+$border-color:                rgba($black, .15) !default;
+$border-color-dark:           rgba($white, .15) !default;
 // scss-docs-end border-variables
 
 // scss-docs-start border-radius-variables
@@ -588,6 +607,7 @@ $headings-font-style:         null !default;
 $headings-font-weight:        500 !default;
 $headings-line-height:        1.2 !default;
 $headings-color:              null !default;
+$headings-color-dark:         #fff !default;
 // scss-docs-end headings-variables
 
 // scss-docs-start display-headings
@@ -656,7 +676,7 @@ $table-cell-padding-x-sm:     .25rem !default;
 
 $table-cell-vertical-align:   top !default;
 
-$table-color:                 $body-color !default;
+$table-color:                 null !default;
 $table-bg:                    transparent !default;
 $table-accent-bg:             transparent !default;
 
@@ -816,12 +836,12 @@ $input-padding-y-lg:                    $input-btn-padding-y-lg !default;
 $input-padding-x-lg:                    $input-btn-padding-x-lg !default;
 $input-font-size-lg:                    $input-btn-font-size-lg !default;
 
-$input-bg:                              $body-bg !default;
-$input-disabled-bg:                     $gray-200 !default;
+$input-bg:                              var(--#{$variable-prefix}form-control-bg) !default;
+$input-disabled-bg:                     var(--#{$variable-prefix}form-control-disabled-bg) !default;
 $input-disabled-border-color:           null !default;
 
-$input-color:                           $body-color !default;
-$input-border-color:                    $gray-400 !default;
+$input-color:                           var(--#{$variable-prefix}body-color) !default;
+$input-border-color:                    var(--#{$variable-prefix}border-color) !default; //$gray-400
 $input-border-width:                    $input-btn-border-width !default;
 $input-box-shadow:                      $box-shadow-inset !default;
 
@@ -865,7 +885,7 @@ $form-check-transition:                   null !default;
 $form-check-input-active-filter:          brightness(90%) !default;
 
 $form-check-input-bg:                     $input-bg !default;
-$form-check-input-border:                 1px solid rgba($black, .25) !default;
+$form-check-input-border:                 var(--#{$variable-prefix}border-width) solid var(--#{$variable-prefix}border-color) !default;
 $form-check-input-border-radius:          .25em !default;
 $form-check-radio-border-radius:          50% !default;
 $form-check-input-focus-border:           $input-focus-border-color !default;
@@ -1124,9 +1144,9 @@ $dropdown-padding-x:                0 !default;
 $dropdown-padding-y:                .5rem !default;
 $dropdown-spacer:                   .125rem !default;
 $dropdown-font-size:                $font-size-base !default;
-$dropdown-color:                    $body-color !default;
-$dropdown-bg:                       $white !default;
-$dropdown-border-color:             rgba($black, .15) !default;
+$dropdown-color:                    var(--#{$variable-prefix}body-color) !default;
+$dropdown-bg:                       var(--#{$variable-prefix}body-bg) !default;
+$dropdown-border-color:             var(--#{$variable-prefix}border-color) !default;
 $dropdown-border-radius:            $border-radius !default;
 $dropdown-border-width:             $border-width !default;
 $dropdown-inner-border-radius:      subtract($dropdown-border-radius, $dropdown-border-width) !default;
@@ -1134,9 +1154,9 @@ $dropdown-divider-bg:               $dropdown-border-color !default;
 $dropdown-divider-margin-y:         $spacer * .5 !default;
 $dropdown-box-shadow:               $box-shadow !default;
 
-$dropdown-link-color:               $gray-900 !default;
-$dropdown-link-hover-color:         shade-color($dropdown-link-color, 10%) !default;
-$dropdown-link-hover-bg:            $gray-200 !default;
+$dropdown-link-color:               var(--#{$variable-prefix}body-color) !default;
+$dropdown-link-hover-color:         $dropdown-link-color !default;
+$dropdown-link-hover-bg:            var(--#{$variable-prefix}tertiary-bg) !default;
 
 $dropdown-link-active-color:        $component-active-color !default;
 $dropdown-link-active-bg:           $component-active-bg !default;
@@ -1597,6 +1617,7 @@ $offcanvas-backdrop-opacity:        $modal-backdrop-opacity !default;
 
 $code-font-size:                    $small-font-size !default;
 $code-color:                        $pink !default;
+$code-color-dark:                   $pink-300 !default;
 
 $kbd-padding-y:                     .2rem !default;
 $kbd-padding-x:                     .4rem !default;

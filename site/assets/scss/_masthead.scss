@@ -1,21 +1,15 @@
 .bd-masthead {
   padding: 3rem 0;
-  background: linear-gradient(165deg, tint-color($bd-purple-light, 85%) 50%, $white 50%);
+  background: linear-gradient(165deg, rgba(var(--bd-violet-rgb), .05) 50%, var(--bs-body-bg) 50%);
 
   h1 {
     @include font-size(4rem);
-    line-height: 1;
-  }
-
-  .btn {
-    padding: .8rem 2rem;
-    font-weight: 600;
   }
 
   .lead {
     @include font-size(1rem);
     font-weight: 400;
-    color: $gray-700;
+    color: var(--bs-secondary-color);
   }
 
   .highlight {
@@ -29,8 +23,7 @@
   }
 
   #carbonads { // stylelint-disable-line selector-max-id
-    margin-right: auto;
-    margin-left: auto;
+    margin-inline: auto;
   }
 
   @include media-breakpoint-up(md) {
@@ -40,7 +33,7 @@
   }
 }
 
-.masthead-followup {
+.bd-masthead-followup {
   .lead {
     @include font-size(1rem);
   }
@@ -72,5 +65,6 @@
 }
 
 .masthead-notice {
-  background-color: #d2f4ea;
+  --bg: #{to-rgb($teal)};
+  background-color: rgba(var(--bg), .2);
 }

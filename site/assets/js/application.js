@@ -132,6 +132,31 @@
     })
   }
 
+  // Toggle color modes
+
+  var toggleSwitch = document.querySelector('.bd-theme-toggle input[type="checkbox"]')
+  var currentTheme = localStorage.getItem('theme')
+
+  if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme)
+
+    if (currentTheme === 'dark') {
+      toggleSwitch.checked = true
+    }
+  }
+
+  function switchTheme(e) {
+    if (e.target.checked) {
+      document.documentElement.setAttribute('data-theme', 'dark')
+      localStorage.setItem('theme', 'dark')
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light')
+      localStorage.setItem('theme', 'light')
+    }
+  }
+
+  toggleSwitch.addEventListener('change', switchTheme, false)
+
   // Insert copy to clipboard button before .highlight
   var btnTitle = 'Copy to clipboard'
   var btnHtml = '<div class="bd-clipboard"><button type="button" class="btn-clipboard" ><svg class="bi" width="1em" height="1em" fill="currentColor"><use xlink:href="#clipboard"/></svg></button></div>'

@@ -39,28 +39,28 @@
 
         <hr class="d-md-none text-white-50">
 
-        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+        <ul class="navbar-nav flex-row flex-wrap ms-md-auto me-lg-1">
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="{{ .Site.Params.github_org }}" target="_blank" rel="noopener">
-              {{ partial "icons/github.svg" (dict "class" "navbar-nav-svg d-inline-block align-text-top" "width" "36" "height" "36") }}
+              {{ partial "icons/github.svg" (dict "class" "bi d-inline-block" "width" "36" "height" "36") }}
               <small class="d-md-none ms-2">GitHub</small>
             </a>
           </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="https://twitter.com/{{ .Site.Params.twitter }}" target="_blank" rel="noopener">
-              {{ partial "icons/twitter.svg" (dict "class" "navbar-nav-svg d-inline-block align-text-top" "width" "36" "height" "36") }}
+              {{ partial "icons/twitter.svg" (dict "class" "bi d-inline-block" "width" "36" "height" "36") }}
               <small class="d-md-none ms-2">Twitter</small>
             </a>
           </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="{{ .Site.Params.slack }}" target="_blank" rel="noopener">
-              {{ partial "icons/slack.svg" (dict "class" "navbar-nav-svg d-inline-block align-text-top" "width" "36" "height" "36") }}
+              {{ partial "icons/slack.svg" (dict "class" "bi d-inline-block" "width" "36" "height" "36") }}
               <small class="d-md-none ms-2">Slack</small>
             </a>
           </li>
           <li class="nav-item col-6 col-md-auto">
             <a class="nav-link p-2" href="{{ .Site.Params.opencollective }}" target="_blank" rel="noopener">
-              {{ partial "icons/opencollective.svg" (dict "class" "navbar-nav-svg d-inline-block align-text-top" "width" "36" "height" "36") }}
+              {{ partial "icons/opencollective.svg" (dict "class" "bi d-inline-block" "width" "36" "height" "36") }}
               <small class="d-md-none ms-2">Open Collective</small>
             </a>
           </li>
@@ -68,7 +68,18 @@
 
         <hr class="d-md-none text-white-50">
 
-        <a class="btn btn-bd-accent d-lg-inline-block my-2 my-md-0 ms-md-3" href="/docs/{{ .Site.Params.docs_version }}/getting-started/download/">Download</a>
+        <div class="vr d-none d-lg-flex ms-lg-2 me-lg-3 my-lg-1"></div>
+
+        <div class="d-flex flex-row-reverse flex-lg-row">
+          <label class="bd-theme-toggle align-self-center ms-auto me-lg-1" title="Toggle mode">
+            <input type="checkbox" class="bd-theme-toggle-checkbox" id="checkbox">
+            <div class="visually-hidden">Toggle mode</div>
+            <svg class="bd-theme-toggle-dark bi"><use xlink:href="#moon-stars-fill"></use></svg>
+            <svg class="bd-theme-toggle-light bi"><use xlink:href="#sun-fill"></use></svg>
+          </label>
+
+          <a class="btn btn-bd-accent d-lg-inline-block my-2 my-md-0 ms-md-3" href="/docs/{{ .Site.Params.docs_version }}/getting-started/download/">Download</a>
+        </div>
       </div>
     </div>
   </nav>

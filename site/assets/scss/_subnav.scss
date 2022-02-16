@@ -6,22 +6,25 @@
   // The position and z-index are needed for the dropdown to stay on top of the content
   position: relative;
   z-index: $zindex-sticky;
-  background-color: rgba($white, .95);
+  background-color: rgba(var(--bs-tertiary-bg-rgb), .95);
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .05), inset 0 -1px 0 rgba(0, 0, 0, .15);
 
   .dropdown-menu {
-    --#{$variable-prefix}dropdown-min-width: 12rem;
-    --#{$variable-prefix}dropdown-link-hover-bg: rgba(var(--bd-violet-rgb), .1);
-    @include rfs(.875rem, --#{$variable-prefix}dropdown-font-size);
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .05);
+    --bs-dropdown-min-width: 12rem;
+    --bs-dropdown-padding: .5rem;
+    @include rfs(.875rem, --bs-dropdown-font-size);
+    --bs-dropdown-border-radius: .5rem; // stylelint-disable-line custom-property-empty-line-before
+    --bs-dropdown-shadow: 0 .25rem .75rem rgba(0, 0, 0, .1), 0 .5rem 1.5rem rgba(0, 0, 0, .05);
+    --bs-dropdown-link-hover-bg: var(--bd-sidebar-link-bg);
+    --bs-dropdown-link-active-bg: var(--bd-violet);
+  }
+
+  .dropdown-item {
+    @include border-radius(.25rem);
   }
 
   .dropdown-item.current {
     font-weight: 600;
-    background-image: escape-svg($dropdown-active-icon);
-    background-repeat: no-repeat;
-    background-position: right $dropdown-item-padding-x top .6rem;
-    background-size: .75rem .75rem;
   }
 
   @include media-breakpoint-up(md) {
@@ -46,7 +49,7 @@
     @include font-size(.75rem);
     color: $gray-600;
     content: "Ctrl + /";
-    background-color: $gray-100;
+    background-color: var(--bs-tertiary-bg);
     @include border-radius(.125rem);
   }
 

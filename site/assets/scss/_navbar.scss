@@ -1,10 +1,6 @@
 .bd-navbar {
   padding: .75rem 0;
-  background-color: $bd-violet;
-
-  .container-xxl {
-    --bs-gutter-x: #{$bd-gutter-x};
-  }
+  background-color: var(--bd-violet);
 
   .container-xxl {
     --bs-gutter-x: #{$bd-gutter-x};
@@ -33,11 +29,6 @@
     }
   }
 
-  .navbar-nav-svg {
-    width: 1rem;
-    height: 1rem;
-  }
-
   .offcanvas {
     background-color: $bd-violet;
     border-left: 0;
@@ -46,4 +37,38 @@
       box-shadow: $box-shadow-lg;
     }
   }
+}
+
+
+.bd-theme-toggle {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.bd-theme-toggle-checkbox {
+  position: absolute;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  white-space: nowrap;
+
+  ~ .bd-theme-toggle-light { display: none; }
+  ~ .bd-theme-toggle-dark { display: block; }
+
+  &:checked {
+    ~ .bd-theme-toggle-light { display: block; }
+    ~ .bd-theme-toggle-dark { display: none; }
+  }
+}
+
+.bd-theme-toggle-light {
+  color: var(--bs-warning);
+}
+
+.bd-theme-toggle-dark {
+  color: var(--bs-navbar-brand-color);
 }

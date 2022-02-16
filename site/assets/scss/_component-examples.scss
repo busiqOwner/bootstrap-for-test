@@ -86,7 +86,7 @@
   position: relative;
   padding: 1rem;
   margin: 1rem ($bd-gutter-x * -.5) 0;
-  border: solid $gray-300;
+  border: solid var(--bs-border-color);
   border-width: 1px 0 0;
   @include clearfix();
 
@@ -317,7 +317,7 @@
 .highlight {
   padding: .75rem ($bd-gutter-x * .5);
   margin-bottom: 1rem;
-  background-color: $gray-100;
+  background-color: var(--bs-tertiary-bg);
 
   @include media-breakpoint-up(md) {
     padding: .75rem 1.5rem;
@@ -339,7 +339,7 @@
 
   pre code {
     @include font-size(inherit);
-    color: $gray-900; // Effectively the base text color
+    color: var(--bs-body-color); // Effectively the base text color
     word-wrap: normal;
   }
 }

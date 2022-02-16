@@ -1,4 +1,7 @@
-:root {
+// stylelint-disable custom-property-empty-line-before
+
+:root,
+[data-theme="light"] {
   // Note: Custom variable values only support SassScript inside `#{}`.
 
   // Colors
@@ -35,7 +38,7 @@
   --#{$variable-prefix}gradient: #{$gradient};
 
   // Root and body
-  // stylelint-disable custom-property-empty-line-before
+
   // scss-docs-start root-body-variables
   @if $font-size-root != null {
     --#{$variable-prefix}root-font-size: #{$font-size-root};
@@ -45,10 +48,75 @@
   --#{$variable-prefix}body-font-weight: #{$font-weight-base};
   --#{$variable-prefix}body-line-height: #{$line-height-base};
   --#{$variable-prefix}body-color: #{$body-color};
+  // --#{$variable-prefix}body-accent-color: #{$body-accent-color};
+
+  // todo: replace body-accent-color with secondary-color
+  --#{$variable-prefix}secondary-color: #{$body-secondary-color};
+  --#{$variable-prefix}secondary-color-rgb: #{to-rgb($body-secondary-color)};
+  --#{$variable-prefix}secondary-bg: #{$body-secondary-bg};
+  --#{$variable-prefix}secondary-bg-rgb: #{to-rgb($body-secondary-bg)};
+
+  --#{$variable-prefix}tertiary-color: #{$body-tertiary-color};
+  --#{$variable-prefix}tertiary-color-rgb: #{to-rgb($body-tertiary-color)};
+  --#{$variable-prefix}tertiary-bg: #{$body-tertiary-bg};
+  --#{$variable-prefix}tertiary-bg-rgb: #{to-rgb($body-tertiary-bg)};
+
   @if $body-text-align != null {
     --#{$variable-prefix}body-text-align: #{$body-text-align};
   }
   --#{$variable-prefix}body-bg: #{$body-bg};
+  --#{$variable-prefix}body-bg-rgb: #{to-rgb($body-bg)};
   // scss-docs-end root-body-variables
-  // stylelint-enable custom-property-empty-line-before
+
+  --#{$variable-prefix}heading-color: #{$headings-color};
+  --#{$variable-prefix}link-color: #{$link-color};
+  --#{$variable-prefix}link-hover-color: #{$link-hover-color};
+
+  --#{$variable-prefix}code-color: #{$code-color};
+
+  --#{$variable-prefix}border-color: #{$border-color};
+  --#{$variable-prefix}border-style: #{$border-style};
+  --#{$variable-prefix}border-width: #{$border-width};
+
+  // TODO: move to form components? or make global?
+  --#{$variable-prefix}form-control-bg: var(--#{$variable-prefix}body-bg);
+  --#{$variable-prefix}form-control-disabled-bg: var(--#{$variable-prefix}secondary-bg);
+}
+
+[data-theme="dark"] {
+  --#{$variable-prefix}primary: #{$blue-300};
+  --#{$variable-prefix}success: #{$green-300};
+  --#{$variable-prefix}danger: #{$red-300};
+  --#{$variable-prefix}warning: #{$yellow-300};
+  --#{$variable-prefix}info: #{$cyan-300};
+
+  --#{$variable-prefix}primary-rgb: #{to-rgb($blue-300)};
+  --#{$variable-prefix}success-rgb: #{to-rgb($green-300)};
+  --#{$variable-prefix}danger-rgb: #{to-rgb($red-300)};
+  --#{$variable-prefix}warning-rgb: #{to-rgb($yellow-300)};
+  --#{$variable-prefix}info-rgb: #{to-rgb($cyan-300)};
+
+  --#{$variable-prefix}body-color: #{$body-color-dark};
+  --#{$variable-prefix}body-color-rgb: #{to-rgb($body-color-dark)};
+  --#{$variable-prefix}body-bg: #{$body-bg-dark};
+  --#{$variable-prefix}body-bg-rgb: #{to-rgb($body-bg-dark)};
+
+  --#{$variable-prefix}secondary-color: #{$body-secondary-color-dark};
+  // --#{$variable-prefix}secondary-color-rgb: #{to-rgb($body-secondary-color-dark)};
+  --#{$variable-prefix}secondary-bg: #{$body-secondary-bg-dark};
+  --#{$variable-prefix}secondary-bg-rgb: #{to-rgb($body-secondary-bg-dark)};
+
+  --#{$variable-prefix}tertiary-color: #{$body-tertiary-color-dark};
+  // --#{$variable-prefix}tertiary-color-rgb: #{to-rgb($body-tertiary-color-dark)};
+  --#{$variable-prefix}tertiary-bg: #{$body-tertiary-bg-dark};
+  --#{$variable-prefix}tertiary-bg-rgb: #{to-rgb($body-tertiary-bg-dark)};
+
+  --#{$variable-prefix}heading-color: #{$headings-color-dark};
+
+  --#{$variable-prefix}link-color: #{$link-color-dark};
+  --#{$variable-prefix}link-hover-color: #{$link-hover-color-dark};
+
+  --#{$variable-prefix}code-color: #{$code-color-dark};
+
+  --#{$variable-prefix}border-color: #{$border-color-dark};
 }

@@ -13,7 +13,7 @@
     margin-bottom: .25rem;
   }
 
-  p:last-child {
+  > :last-child {
     margin-bottom: 0;
   }
 

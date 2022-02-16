@@ -99,14 +99,14 @@ $utilities: map-merge(
     "border": (
       property: border,
       values: (
-        null: $border-width solid $border-color,
+        null: var(--#{$variable-prefix}border-width) solid var(--#{$variable-prefix}border-color),
         0: 0,
       )
     ),
     "border-top": (
       property: border-top,
       values: (
-        null: $border-width solid $border-color,
+        null: var(--#{$variable-prefix}border-width) solid var(--#{$variable-prefix}border-color),
         0: 0,
       )
     ),
@@ -114,14 +114,14 @@ $utilities: map-merge(
       property: border-right,
       class: border-end,
       values: (
-        null: $border-width solid $border-color,
+        null: var(--#{$variable-prefix}border-width) solid var(--#{$variable-prefix}border-color),
         0: 0,
       )
     ),
     "border-bottom": (
       property: border-bottom,
       values: (
-        null: $border-width solid $border-color,
+        null: var(--#{$variable-prefix}border-width) solid var(--#{$variable-prefix}border-color),
         0: 0,
       )
     ),
@@ -129,7 +129,7 @@ $utilities: map-merge(
       property: border-left,
       class: border-start,
       values: (
-        null: $border-width solid $border-color,
+        null: var(--#{$variable-prefix}border-width) solid var(--#{$variable-prefix}border-color),
         0: 0,
       )
     ),
@@ -523,6 +523,8 @@ $utilities: map-merge(
           "muted": $text-muted,
           "black-50": rgba($black, .5), // deprecated
           "white-50": rgba($white, .5), // deprecated
+          "body-secondary": var(--#{$variable-prefix}secondary-color),
+          "body-tertiary": var(--#{$variable-prefix}tertiary-color),
           "reset": inherit,
         )
       )
@@ -548,7 +550,9 @@ $utilities: map-merge(
       values: map-merge(
         $utilities-bg-colors,
         (
-          "transparent": transparent
+          "transparent": transparent,
+          "body-secondary": rgba(var(--#{$variable-prefix}secondary-bg-rgb), var(--#{$variable-prefix}bg-opacity)),
+          "body-tertiary": rgba(var(--#{$variable-prefix}tertiary-bg-rgb), var(--#{$variable-prefix}bg-opacity)),
         )
       )
     ),
